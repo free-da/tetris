@@ -2,25 +2,24 @@ package application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
+
+
+
 
 public class Main extends Application {
 
 	@Override
-	public void start(Stage primaryStage) {
-		Label label = new Label("Hello JavaFX World!");
+    public void start(Stage stage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("BasicLayout.fxml"));
 
-		StackPane root = new StackPane();
-		root.getChildren().add(label);
+        Scene scene = new Scene(root);
+        stage.setTitle("PuF - Tetris");
 
-		Scene scene = new Scene(root, 400, 300);
-
-		primaryStage.setTitle("Hello JavaFX World!");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
+        stage.setScene(scene);
+        stage.show();	}
 
 	public static void main(String[] args) {
 		launch(args);
