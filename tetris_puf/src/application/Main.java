@@ -6,20 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-
-
-
 public class Main extends Application {
 
 	@Override
     public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("BasicLayout.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
 
         Scene scene = new Scene(root);
         stage.setTitle("PuF - Tetris");
 
         stage.setScene(scene);
-        stage.show();	}
+        stage.show();	
+    }
 
 	public static void main(String[] args) {
 		launch(args);
