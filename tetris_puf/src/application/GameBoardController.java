@@ -67,10 +67,38 @@ public class GameBoardController {
     @FXML
     private void buildUpGridForNextUpShape() {
     	buildUpGrid(8,16,nextUpGrid);
+    	
+    	
+    	insertIShape(makeShape("i-shape"), nextUpGrid);
+    }
+    
+    private Pane[] makeShape(String kindOfShape) {
+    	InnerShadow innerShadow = new InnerShadow(5, Color.BLACK);
+    	Pane[] shape = new Pane[] {
+    		new Pane(),
+    		new Pane(),
+    		new Pane(),
+    		new Pane(),
+    	};
+    	for (Pane pane : shape) {
+			pane.getStyleClass().add(kindOfShape);
+			pane.setEffect(innerShadow);
+    	}
+    	return shape;
+    	
+    }
+    
+    private void insertIShape(Pane[] iShape, GridPane grid) {
+    	
+    	grid.add(iShape[0], 2, 0);
+    	grid.add(iShape[1], 3, 0);
+    	grid.add(iShape[2], 4, 0);
+    	grid.add(iShape[3], 5, 0);
     }
     
     private void buildUpGrid(int numberOfColumns, int numberOfRows, GridPane grid) {
-    	
+//    	int cellWidth = (int) (Region.USE_COMPUTED_SIZE / numberOfColumns);
+//    	int cellHeight = (int) (Region.USE_COMPUTED_SIZE / numberOfRows);
     	InnerShadow innerShadow = new InnerShadow(5, Color.BLACK);
     	for(int i=0; i<numberOfColumns; i++) {
     		for (int j=0; j<numberOfRows; j++) {
