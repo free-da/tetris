@@ -1,5 +1,7 @@
 package application;
 
+import application.model.Square;
+import application.model.TetrisShape;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -67,34 +71,53 @@ public class GameBoardController {
     @FXML
     private void buildUpGridForNextUpShape() {
     	buildUpGrid(8,16,nextUpGrid);
-    	
-    	
-    	insertIShape(makeShape("i-shape"), nextUpGrid);
+
+    	TetrisShape iShape = new TetrisShape("I");
+    	TetrisShape lShape = new TetrisShape("L");
+    	TetrisShape oShape = new TetrisShape("O");
+    	TetrisShape zShape = new TetrisShape("Z");
+    	TetrisShape tShape = new TetrisShape("T");
+
+    	insertShapeIntoGrid(iShape,nextUpGrid,0,0);
+    	insertShapeIntoGrid(lShape,nextUpGrid,3,2);
+    	insertShapeIntoGrid(oShape,nextUpGrid,6,4);
+    	insertShapeIntoGrid(zShape,nextUpGrid,10,0);
+    	insertShapeIntoGrid(tShape,nextUpGrid,14,4);
     }
     
-    private Pane[] makeShape(String kindOfShape) {
+    private void insertShapeIntoGrid(TetrisShape shape, GridPane grid, int rowOffset, int columnOffset) {
     	InnerShadow innerShadow = new InnerShadow(5, Color.BLACK);
-    	Pane[] shape = new Pane[] {
-    		new Pane(),
-    		new Pane(),
-    		new Pane(),
-    		new Pane(),
-    	};
-    	for (Pane pane : shape) {
-			pane.getStyleClass().add(kindOfShape);
-			pane.setEffect(innerShadow);
+
+    	for(Square square : shape.getSquares()) {
+    		square.setBackground(new Background(new BackgroundFill(square.getColor(), null, null)));
+    		square.setEffect(innerShadow);
+    		nextUpGrid.add(square, square.getPositionColumn()+columnOffset, square.getPositionRow()+rowOffset);
     	}
-    	return shape;
-    	
     }
-    
-    private void insertIShape(Pane[] iShape, GridPane grid) {
-    	
-    	grid.add(iShape[0], 2, 0);
-    	grid.add(iShape[1], 3, 0);
-    	grid.add(iShape[2], 4, 0);
-    	grid.add(iShape[3], 5, 0);
-    }
+//    
+//    private Pane[] makeShape(String kindOfShape) {
+//    	InnerShadow innerShadow = new InnerShadow(5, Color.BLACK);
+//    	Pane[] shape = new Pane[] {
+//    		new Pane(),
+//    		new Pane(),
+//    		new Pane(),
+//    		new Pane(),
+//    	};
+//    	for (Pane pane : shape) {
+//			pane.getStyleClass().add(kindOfShape);
+//			pane.setEffect(innerShadow);
+//    	}
+//    	return shape;
+//    	
+//    }
+//    
+//    private void insertIShape(Pane[] iShape, GridPane grid) {
+//    	
+//    	grid.add(iShape[0], 2, 0);
+//    	grid.add(iShape[1], 3, 0);
+//    	grid.add(iShape[2], 4, 0);
+//    	grid.add(iShape[3], 5, 0);
+//    }
     
     private void buildUpGrid(int numberOfColumns, int numberOfRows, GridPane grid) {
 //    	int cellWidth = (int) (Region.USE_COMPUTED_SIZE / numberOfColumns);
