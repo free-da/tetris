@@ -46,6 +46,19 @@ public class GameBoardController {
     	buildUpGridAndAddPanels();
     	buildUpGridForNextUpShape();
     	buildUpLabelForPoints();
+    	
+
+    	TetrisShape iShape = new TetrisShape("I");
+    	TetrisShape lShape = new TetrisShape("L");
+    	TetrisShape oShape = new TetrisShape("O");
+    	TetrisShape zShape = new TetrisShape("Z");
+    	TetrisShape tShape = new TetrisShape("T");
+
+    	insertShapeIntoGrid(iShape,playingGrid,0,0);
+    	insertShapeIntoGrid(lShape,playingGrid,3,2);
+    	insertShapeIntoGrid(oShape,playingGrid,6,4);
+    	insertShapeIntoGrid(zShape,playingGrid,10,0);
+    	insertShapeIntoGrid(tShape,playingGrid,14,4);
     }   
     
     public void showGameboard(Stage stage) throws Exception {
@@ -71,18 +84,6 @@ public class GameBoardController {
     @FXML
     private void buildUpGridForNextUpShape() {
     	buildUpGrid(8,16,nextUpGrid);
-
-    	TetrisShape iShape = new TetrisShape("I");
-    	TetrisShape lShape = new TetrisShape("L");
-    	TetrisShape oShape = new TetrisShape("O");
-    	TetrisShape zShape = new TetrisShape("Z");
-    	TetrisShape tShape = new TetrisShape("T");
-
-    	insertShapeIntoGrid(iShape,nextUpGrid,0,0);
-    	insertShapeIntoGrid(lShape,nextUpGrid,3,2);
-    	insertShapeIntoGrid(oShape,nextUpGrid,6,4);
-    	insertShapeIntoGrid(zShape,nextUpGrid,10,0);
-    	insertShapeIntoGrid(tShape,nextUpGrid,14,4);
     }
     
     private void insertShapeIntoGrid(TetrisShape shape, GridPane grid, int rowOffset, int columnOffset) {
@@ -91,33 +92,9 @@ public class GameBoardController {
     	for(Square square : shape.getSquares()) {
     		square.setBackground(new Background(new BackgroundFill(square.getColor(), null, null)));
     		square.setEffect(innerShadow);
-    		nextUpGrid.add(square, square.getPositionColumn()+columnOffset, square.getPositionRow()+rowOffset);
+    		grid.add(square, square.getPositionColumn()+columnOffset, square.getPositionRow()+rowOffset);
     	}
     }
-//    
-//    private Pane[] makeShape(String kindOfShape) {
-//    	InnerShadow innerShadow = new InnerShadow(5, Color.BLACK);
-//    	Pane[] shape = new Pane[] {
-//    		new Pane(),
-//    		new Pane(),
-//    		new Pane(),
-//    		new Pane(),
-//    	};
-//    	for (Pane pane : shape) {
-//			pane.getStyleClass().add(kindOfShape);
-//			pane.setEffect(innerShadow);
-//    	}
-//    	return shape;
-//    	
-//    }
-//    
-//    private void insertIShape(Pane[] iShape, GridPane grid) {
-//    	
-//    	grid.add(iShape[0], 2, 0);
-//    	grid.add(iShape[1], 3, 0);
-//    	grid.add(iShape[2], 4, 0);
-//    	grid.add(iShape[3], 5, 0);
-//    }
     
     private void buildUpGrid(int numberOfColumns, int numberOfRows, GridPane grid) {
 //    	int cellWidth = (int) (Region.USE_COMPUTED_SIZE / numberOfColumns);
