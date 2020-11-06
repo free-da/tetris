@@ -3,8 +3,8 @@ package application.controller;
 import application.model.TetrisShape;
 import application.view.GameBoardView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+//import javafx.scene.control.Label;
+//import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 
 public class GameBoardController {
@@ -12,11 +12,11 @@ public class GameBoardController {
 	@FXML
 	private GridPane playingGrid, nextUpGrid;
 	
-	@FXML
-	private Label pointsLabel;
-	
-	@FXML
-	private TitledPane pointsTitle, nextUpTitle;
+//	@FXML
+//	private Label pointsLabel;
+//	
+//	@FXML
+//	private TitledPane pointsTitle, nextUpTitle;
 	
 	public void initialize() {
 		GameBoardView gameboard = new GameBoardView();
