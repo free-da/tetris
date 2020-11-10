@@ -1,8 +1,5 @@
 .game-grid-cell {
     -fx-background-color: "#303030";
-    -fx-background-insets: 0 1 1 0 ;
-    -fx-border-color: "#101010";
-    -fx-border-width: 0.5px;
 }
 .digitalLetters {
 	-fx-font-family: "Let's go Digital";

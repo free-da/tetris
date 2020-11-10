@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="432.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameBoardController">
+<AnchorPane prefHeight="434.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainWindowController">
    <children>
-      <SplitPane dividerPositions="0.6671826625386997" prefHeight="432.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.66875" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-            <GridPane fx:id="playingGrid" prefWidth="216.0" styleClass="game-grid-cell">
-               
-            </GridPane>
+            <Pane minHeight="434.0" minWidth="210.0" prefWidth="212.0" styleClass="game-grid-cell">
+               <children>
+                  <Canvas fx:id="gameboardCanvas" height="434.0" width="210.0" />
+               </children>
+            </Pane>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="100.0">
               <items>
-                  <TitledPane fx:id="nextUpTitle" animated="false" prefHeight="216.0" prefWidth="100.0" styleClass="game-grid-cell" text="Next up">
-                     <content>
-                        <GridPane fx:id="nextUpGrid" prefHeight="216.0" prefWidth="100.0" styleClass="game-grid-cell">
-                                         
-                                          </GridPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="pointsTitle" animated="false" prefHeight="216.0" prefWidth="100.0" styleClass="game-grid-cell" text="Points">
-                     <content>
-                        <Label fx:id="pointsLabel" alignment="CENTER" prefHeight="216.0" prefWidth="100.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
-                     </content>
-                  </TitledPane>
+                  <Pane prefWidth="59.0" styleClass="game-grid-cell">
+                     <children>
+                        <Label contentDisplay="CENTER" prefHeight="26.0" prefWidth="104.0" text="Next Up" textAlignment="CENTER" textFill="#12f831" />
+                        <Button fx:id="nextUpButton" alignment="CENTER" contentDisplay="CENTER" layoutY="50.0" mnemonicParsing="false" text="NextUp" textAlignment="CENTER" />
+                        <GridPane fx:id="nextUpGrid" layoutY="81.0" prefHeight="130.0" prefWidth="104.0" styleClass="game-grid-cell">
+                           
+                        </GridPane>
+                     </children>
+                  </Pane>
+                  <Pane styleClass="game-grid-cell">
+                     <children>
+                        <Label fx:id="pointsLabel" alignment="CENTER" layoutY="45.0" prefHeight="164.0" prefWidth="104.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
+                        <Label contentDisplay="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="33.0" prefWidth="104.0" text="Points" textAlignment="CENTER" textFill="#eb1e5c" />
+                     </children>
+                  </Pane>
               </items>
             </SplitPane>
         </items>
