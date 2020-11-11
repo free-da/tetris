@@ -3,11 +3,7 @@ package application.view;
 import application.model.KlotzTypeModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.effect.Lighting;
-import javafx.scene.effect.Shadow;
 import javafx.scene.paint.Color;
 
 
@@ -23,25 +19,39 @@ public class TetrisGridView {
 		numberOfColumns = columns;
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         drawGridLines(graphicsContext);
+//        setKlotz(0,0,KlotzTypeModel.IKlotz);
+//        setKlotz(5,3,KlotzTypeModel.OKlotz);
+//        setKlotz(8,6,KlotzTypeModel.LKlotz);
+//        setKlotz(11,9,KlotzTypeModel.JKlotz);
+//        setKlotz(15,12,KlotzTypeModel.ZKlotz);
+//        setKlotz(20,6,KlotzTypeModel.TKlotz);
+//        setKlotz(24,3,KlotzTypeModel.SKlotz);
+
 	}
 	
 	public void setKlotz(int rowIndex, int columnIndex, KlotzTypeModel klotzType) {
 		Color color;
 		switch (klotzType) {
 			case IKlotz:
-				color = Color.AQUA;
+				color = Color.DODGERBLUE;
 				break;
 			case OKlotz:
-				color = Color.FUCHSIA;
+				color = Color.VIOLET;
 				break;
 			case LKlotz:
 				color = Color.CHARTREUSE;
+				break;
+			case JKlotz:
+				color= Color.ORANGE;
 				break;
 			case ZKlotz:
 				color = Color.YELLOW;
 				break;
 			case TKlotz:
-				color = Color.DARKORANGE;
+				color = Color.TURQUOISE;
+				break;
+			case SKlotz:
+				color = Color.SALMON;
 				break;
 			default:
 				color = Color.BLACK;
@@ -63,10 +73,8 @@ public class TetrisGridView {
 	}
 	
 	private void drawGridLines(GraphicsContext gc) {
-//		DropShadow effect = new DropShadow(BlurType.GAUSSIAN, Color.BLACK, 0.3, 0.6, 2, 2);
 		gc.setLineWidth(borderWidth);
 		gc.setStroke(Color.DIMGREY);
-//		gc.setEffect(effect);
 		double xStart = 0;
 		double yStart = 0;
 		for (int i=0; i<numberOfRows; i++) { 

@@ -46,9 +46,15 @@ public class TetrisGridController {
 			break;
 		case OKlotz:
 			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex, klotzType);
-			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex+1, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex-1, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex-1, klotzType);
+			break;
+		case JKlotz:
+			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex-1, klotzType);
 			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex, klotzType);
 			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex+1, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex-1, klotzType);
 			break;
 		case LKlotz:
 			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex-1, klotzType);
@@ -66,6 +72,12 @@ public class TetrisGridController {
 			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex-1, klotzType);
 			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex, klotzType);
 			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex+1, klotzType);			
+			break;
+		case SKlotz:
+			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex-1, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex+1, columnIndex, klotzType);
+			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex, klotzType);
 			tetrisGridModel.setKlotzOfCell(rowIndex, columnIndex+1, klotzType);			
 			break;
 		}
