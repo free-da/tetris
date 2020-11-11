@@ -31,4 +31,5 @@ public class TetrisGridModel {
 	public void setKlotzOfCell(int rowIndex, int columnIndex, KlotzTypeModel klotzType) {
 		gridOfKlotzes[rowIndex][columnIndex] = klotzType;
 	}
+	
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -20,13 +21,21 @@
                   <Pane maxHeight="210.0" prefHeight="210.0" prefWidth="112.0" styleClass="game-grid-cell">
                      <children>
                         <Canvas fx:id="nextUpCanvas" height="210.0" width="112.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" styleClass="sidebar-headline" text="Next Up" textAlignment="CENTER" textFill="#12f831" />
+                        <Label id="nextup-headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" text="Next Up" textAlignment="CENTER">
+                           <styleClass>
+                              <String fx:value="sidebar-headline" />
+                              <String fx:value="nextup-headline" />
+                           </styleClass></Label>
                      </children>
                   </Pane>
                   <Pane prefWidth="112.0" styleClass="game-grid-cell">
                      <children>
                         <Label fx:id="pointsLabel" alignment="CENTER" layoutY="1.0" prefHeight="213.0" prefWidth="112.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="112.0" styleClass="sidebar-headline" text="Score" textAlignment="CENTER" textFill="#eb1e5c" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="112.0" text="Score" textAlignment="CENTER">
+                           <styleClass>
+                              <String fx:value="sidebar-headline" />
+                              <String fx:value="score-headline" />
+                           </styleClass></Label>
                      </children>
                   </Pane>
               </items>
