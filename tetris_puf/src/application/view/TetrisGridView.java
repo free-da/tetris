@@ -46,8 +46,8 @@ public class TetrisGridView {
 	}
 	
 	private void drawKlotz(int rowIndex, int columnIndex, Color color) {
-		double xStart = columnIndex * (cellSize + borderWidth) +0.5;
-		double yStart = rowIndex * (cellSize + borderWidth) +0.5;
+		double xStart = columnIndex * (cellSize + borderWidth) + (0.5*borderWidth);
+		double yStart = rowIndex * (cellSize + borderWidth) + (0.5*borderWidth);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(color);
 		gc.fillRect(xStart, yStart, cellSize, cellSize);

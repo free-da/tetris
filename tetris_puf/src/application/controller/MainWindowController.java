@@ -3,10 +3,7 @@ package application.controller;
 import java.util.Random;
 
 import application.model.KlotzTypeModel;
-import application.model.Square;
 import application.model.TetrisGridModel;
-import application.model.TetrisShape;
-import application.view.GameBoardView;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.GridPane;
@@ -16,17 +13,23 @@ public class MainWindowController {
 //	TetrisShape nextUpShape;
 	
 	@FXML
-	Canvas gameboardCanvas;
+	Canvas gameboardCanvas, nextUpCanvas;
 
 //	@FXML
 //	private GridPane playingGrid, nextUpGrid;
 	
 	public void initialize() {
-		TetrisGridModel tetrisGridModel = new TetrisGridModel(32, 16);
-		tetrisGridModel.setKlotzOfCell(3, 10, KlotzTypeModel.ZKlotz);
-		tetrisGridModel.setKlotzOfCell(16, 5, KlotzTypeModel.OKlotz);
+		TetrisGridModel gameboardGridModel = new TetrisGridModel(32, 16);
+		gameboardGridModel.setKlotzOfCell(3, 10, KlotzTypeModel.ZKlotz);
+		gameboardGridModel.setKlotzOfCell(16, 5, KlotzTypeModel.OKlotz);
 
-		TetrisGridController tetrisGridController = new TetrisGridController(gameboardCanvas, tetrisGridModel);
+		TetrisGridController gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
+		
+		TetrisGridModel nextUpGridModel = new TetrisGridModel(16, 8);
+		nextUpGridModel.setKlotzOfCell(3, 5, KlotzTypeModel.TKlotz);
+		nextUpGridModel.setKlotzOfCell(9, 5, KlotzTypeModel.IKlotz);
+
+		TetrisGridController nextUpGridController = new TetrisGridController(nextUpCanvas, nextUpGridModel);
 	}   
 //	
 //	private TetrisShape generateRandomShape() {
