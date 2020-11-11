@@ -4,6 +4,8 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -21,21 +23,31 @@
                   <Pane maxHeight="210.0" prefHeight="210.0" prefWidth="112.0" styleClass="game-grid-cell">
                      <children>
                         <Canvas fx:id="nextUpCanvas" height="210.0" width="112.0" />
-                        <Label id="nextup-headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" text="Next Up" textAlignment="CENTER">
+                        <Label id="nextup-headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" text="Next Up" textAlignment="CENTER" textFill="WHITE">
                            <styleClass>
                               <String fx:value="sidebar-headline" />
                               <String fx:value="nextup-headline" />
-                           </styleClass></Label>
+                           </styleClass>
+                           <effect>
+                              <Lighting diffuseConstant="0.0" light="$null" specularConstant="1.0" specularExponent="2.0" surfaceScale="1.0">
+                                 <bumpInput>
+                                    <Blend />
+                                 </bumpInput></Lighting>
+                           </effect></Label>
                      </children>
                   </Pane>
                   <Pane prefWidth="112.0" styleClass="game-grid-cell">
                      <children>
                         <Label fx:id="pointsLabel" alignment="CENTER" layoutY="1.0" prefHeight="213.0" prefWidth="112.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="112.0" text="Score" textAlignment="CENTER">
-                           <styleClass>
-                              <String fx:value="sidebar-headline" />
-                              <String fx:value="score-headline" />
-                           </styleClass></Label>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="112.0" styleClass="sidebar-headline" text="Score">
+                           <effect>
+                              <Lighting diffuseConstant="0.0" light="$null" specularConstant="1.0" specularExponent="2.0" surfaceScale="1.0">
+                                 <bumpInput>
+                                    <Blend />
+                                 </bumpInput>
+                              </Lighting>
+                           </effect>
+                        </Label>
                      </children>
                   </Pane>
               </items>

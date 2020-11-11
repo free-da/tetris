@@ -19,16 +19,8 @@ public class TetrisGridView {
 		numberOfColumns = columns;
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         drawGridLines(graphicsContext);
-//        setKlotz(0,0,KlotzTypeModel.IKlotz);
-//        setKlotz(5,3,KlotzTypeModel.OKlotz);
-//        setKlotz(8,6,KlotzTypeModel.LKlotz);
-//        setKlotz(11,9,KlotzTypeModel.JKlotz);
-//        setKlotz(15,12,KlotzTypeModel.ZKlotz);
-//        setKlotz(20,6,KlotzTypeModel.TKlotz);
-//        setKlotz(24,3,KlotzTypeModel.SKlotz);
-
 	}
-	
+
 	public void setKlotz(int rowIndex, int columnIndex, KlotzTypeModel klotzType) {
 		Color color;
 		switch (klotzType) {
