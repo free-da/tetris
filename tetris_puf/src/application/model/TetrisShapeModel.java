@@ -1,78 +1,81 @@
 package application.model;
 
+import java.awt.Point;
+
 public class TetrisShapeModel {
-	int[] startPositionCoordinate;
-	int[][] threeOtherKlotzCoordinates;
+	Point startPositionCoordinate;
+	int[][] threeKlotzDistancesRelativeToStartPosition;
 	KlotzTypeModel klotzType;
 
 	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex) {
 		this.klotzType = klotzType;
 		switch (klotzType) {
 		case IKlotz:
-			startPositionCoordinate = new int[] {rowIndex, columnIndex};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex+1, columnIndex},
-				{rowIndex+2, columnIndex},
-				{rowIndex+3, columnIndex}
+			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{1, 0},
+				{2, 0},
+				{3, 0}
 			};
 			break;
 		case OKlotz:
-			startPositionCoordinate = new int[] {rowIndex, columnIndex};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex, columnIndex-1},
-				{rowIndex+1, columnIndex},
-				{rowIndex+1, columnIndex-1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{0, -1},
+				{1, 0},
+				{1, -1}
 			};
 			break;
 		case JKlotz:
-			startPositionCoordinate = new int[] {rowIndex+1, columnIndex-1};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex+1, columnIndex},
-				{rowIndex+1, columnIndex+1},
-				{rowIndex, columnIndex-1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{1, 0},
+				{0, 1},
+				{0, 2}
 			};
 			break;
 		case LKlotz:
-			startPositionCoordinate = new int[] {rowIndex, columnIndex-1};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex, columnIndex},
-				{rowIndex, columnIndex+1},
-				{rowIndex+1, columnIndex-1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{1, 0},
+				{0, 1},
+				{0, 2}
 			};
 			break;
 		case ZKlotz:
-			startPositionCoordinate = new int[] {rowIndex, columnIndex-1};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex, columnIndex},
-				{rowIndex+1, columnIndex},
-				{rowIndex+1, columnIndex+1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{0, 1},
+				{1, 1},
+				{1, 2}
 			};
 			break;
 		case TKlotz:
-			startPositionCoordinate = new int[] {rowIndex, columnIndex-1};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex, columnIndex},
-				{rowIndex+1, columnIndex},
-				{rowIndex, columnIndex+1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{0, 1},
+				{1, 1},
+				{0, 2}
 			};
 			break;
 		case SKlotz:
-			startPositionCoordinate = new int[] {rowIndex+1, columnIndex-1};
-			threeOtherKlotzCoordinates = new int[][]{
-				{rowIndex+1, columnIndex},
-				{rowIndex, columnIndex},
-				{rowIndex, columnIndex+1}
+			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			threeKlotzDistancesRelativeToStartPosition = new int[][]{
+				{0, 1},
+				{1, 0},
+				{1, -1}
 			};
 			break;
 		}
 	}
 	
-	public int[][] getFourKlotzCoordinates() {
-		int[][] fourCoordinates = new int[][] {
-			{startPositionCoordinate[0], startPositionCoordinate[1]},
-			{threeOtherKlotzCoordinates[0][0], threeOtherKlotzCoordinates[0][1]},
-			{threeOtherKlotzCoordinates[1][0], threeOtherKlotzCoordinates[1][1]},
-			{threeOtherKlotzCoordinates[2][0], threeOtherKlotzCoordinates[2][1]}
+	public Point[] getFourKlotzCoordinates() {
+		Point[] fourCoordinates = new Point[] {
+			startPositionCoordinate,
+			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
+			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
+			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
+
 		};
 		return fourCoordinates;
 	}

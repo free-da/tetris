@@ -1,6 +1,9 @@
 package application.controller;
 
 import application.model.TetrisShapeModel;
+
+import java.awt.Point;
+
 import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.view.TetrisGridView;
@@ -29,10 +32,10 @@ public class TetrisGridController {
 			}
 		}
 		if (newShape != null) {
-			int[][] coordinates = newShape.getFourKlotzCoordinates();
-			for(int[] coordinate:coordinates) {
+			Point[] coordinates = newShape.getFourKlotzCoordinates();
+			for(Point coordinate:coordinates) {
 				KlotzTypeModel klotz = newShape.getKlotzType() ;
-				tetrisGridView.setKlotz(coordinate[0], coordinate[1], klotz);
+				tetrisGridView.setKlotz((int)coordinate.getX(), (int)coordinate.getY(), klotz);
 			}
 		}
 	}
