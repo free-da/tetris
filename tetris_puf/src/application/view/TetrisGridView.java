@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 
 
 public class TetrisGridView {
-	double cellSize = 13;
-	double borderWidth = 1;
+	double cellSize = 12;
+	double borderWidth = 2;
 	Canvas canvas;
 	int numberOfRows, numberOfColumns;
 	
@@ -46,10 +46,14 @@ public class TetrisGridView {
 				color = Color.SALMON;
 				break;
 			default:
-				color = Color.BLACK;
+				color = Color.DIMGREY;
 				break;
 			}
-		drawKlotz(rowIndex, columnIndex, color);
+		if (klotzType != KlotzTypeModel.NoKlotz) {
+			drawKlotz(rowIndex, columnIndex, color);	
+		} else {
+			drawNoKlotz(rowIndex, columnIndex);
+		}
 	}
 	
 	private void drawKlotz(int rowIndex, int columnIndex, Color color) {
@@ -61,7 +65,16 @@ public class TetrisGridView {
 		gc.setEffect(effect);
 
 		gc.fillRect(xStart, yStart, cellSize, cellSize);
+	}
+	
+	private void drawNoKlotz(int rowIndex, int columnIndex) {
+		double xStart = columnIndex * (cellSize + borderWidth) + (0.5*borderWidth);
+		double yStart = rowIndex * (cellSize + borderWidth) + (0.5*borderWidth);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.setFill(Color.rgb(48,48,48));
+		gc.setEffect(null);
 
+		gc.fillRect(xStart, yStart, cellSize, cellSize);
 	}
 	
 	private void drawGridLines(GraphicsContext gc) {
@@ -78,4 +91,7 @@ public class TetrisGridView {
 	        xStart += cellSize + borderWidth;
 		}
 	}
+
+//	public void clearCanvas() {
+//	}
 }

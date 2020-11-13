@@ -9,9 +9,10 @@ public class InputEventController {
 	TetrisShapeModel shape;
 	TetrisGridController grid;
 	
-	public InputEventController(Scene scene, TetrisShapeModel shape) {
+	public InputEventController(Scene scene, TetrisShapeModel shape, TetrisGridController grid) {
 		this.scene = scene;
 		this.shape = shape;
+		this.grid = grid;
 		
 		scene.setOnKeyPressed(event -> {
 			
@@ -23,13 +24,16 @@ public class InputEventController {
 	        System.out.println(keycode);
 //	        //Step 2c: Add Zoom controls
 	        if(keycode == KeyCode.LEFT) { 
-	        	shape.moveLeft();
+	        	shape.moveLeft(grid);
         	}
 	        if(keycode == KeyCode.RIGHT) { 
-	        	shape.moveRight();
+	        	shape.moveRight(grid);
 	        }
-	        if(keycode == KeyCode.SPACE) {
-	        	shape.drop();
+	        if(keycode == KeyCode.DOWN) {
+	        	shape.moveDown(grid);
+	        }
+	        if(keycode == KeyCode.UP) {
+	        	shape.moveUp(grid);
 	        }
 //	        //Step 2d:  Add Strafe controls
 //	        if(keycode == KeyCode.A) { camera.setTranslateX(camera.getTranslateX() - change); }

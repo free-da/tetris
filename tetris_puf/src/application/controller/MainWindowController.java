@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class MainWindowController {
 	TetrisShapeModel newShape;
+	TetrisGridController gameBoardGridController;
 	
 	@FXML
 	Canvas gameboardCanvas, nextUpCanvas;
@@ -20,17 +21,17 @@ public class MainWindowController {
 
 	public void initialize() {
 		TetrisGridModel gameboardGridModel = new TetrisGridModel(32, 16);
-		TetrisGridController gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
+		gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
 		newShape = gameBoardGridController.newTetrisShape();
 
 		TetrisGridModel nextGridModel = new TetrisGridModel(16, 7);
 		NextGridController nextGridController = new NextGridController(nextUpCanvas, nextGridModel);
-		nextGridController.newTetrisShape();
+//		nextGridController.newTetrisShape();
 	}
 
 	public void setSceneAndSetupListeners(Scene scene) {
 		// TODO Auto-generated method stub
-		InputEventController inputEventController = new InputEventController(scene, newShape);
+		InputEventController inputEventController = new InputEventController(scene, newShape, gameBoardGridController);
 	}   
 
 }

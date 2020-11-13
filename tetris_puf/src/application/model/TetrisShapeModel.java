@@ -1,10 +1,6 @@
 package application.model;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.concurrent.Flow.Publisher;
-import java.util.concurrent.Flow.Subscriber;
-import java.util.concurrent.SubmissionPublisher;
 
 import application.controller.TetrisGridController;
 
@@ -98,19 +94,29 @@ public class TetrisShapeModel {
 		positionCoordinate = new Point(x,y);
 	}
 
-	public void moveLeft() {
-		setPositionCoordinate((int)positionCoordinate.getX() -1, (int)positionCoordinate.getY());
-		System.out.println(getPositionCoordinate());
+	public void moveLeft(TetrisGridController grid) {
+		setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()-1);
+		grid.refreshGrid();
 	}
 
-	public void moveRight() {
-		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
-		System.out.println(getPositionCoordinate());
+	public void moveRight(TetrisGridController grid) {
+		setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()+1);
+		grid.refreshGrid();
 	}
 
-	public void drop() {
+	public void drop(TetrisGridController grid) {
 		// TODO Auto-generated method stub
-		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+//		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+//		grid.refreshGrid();
 	}
 
+	public void moveDown(TetrisGridController grid) {
+		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+		grid.refreshGrid();
+	}
+
+	public void moveUp(TetrisGridController grid) {
+		setPositionCoordinate((int)positionCoordinate.getX() -1, (int)positionCoordinate.getY());
+		grid.refreshGrid();
+	}
 }
