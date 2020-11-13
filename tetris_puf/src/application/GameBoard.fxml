@@ -20,10 +20,10 @@
             </Pane>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL">
               <items>
-                  <Pane maxHeight="210.0" prefHeight="210.0" prefWidth="112.0" styleClass="game-grid-cell">
+                  <Pane maxHeight="210.0" maxWidth="98.0" prefHeight="210.0" prefWidth="98.0" styleClass="game-grid-cell">
                      <children>
-                        <Canvas fx:id="nextUpCanvas" height="210.0" width="112.0" />
-                        <Label id="nextup-headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" text="Next Up" textAlignment="CENTER" textFill="WHITE">
+                        <Canvas fx:id="nextUpCanvas" height="210.0" width="98.0" />
+                        <Label id="nextup-headline" alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" prefHeight="30.0" prefWidth="98.0" text="Next Up" textAlignment="CENTER" textFill="WHITE">
                            <styleClass>
                               <String fx:value="sidebar-headline" />
                               <String fx:value="nextup-headline" />
@@ -36,10 +36,10 @@
                            </effect></Label>
                      </children>
                   </Pane>
-                  <Pane prefWidth="112.0" styleClass="game-grid-cell">
+                  <Pane prefWidth="98.0" styleClass="game-grid-cell">
                      <children>
-                        <Label fx:id="pointsLabel" alignment="CENTER" layoutY="1.0" prefHeight="213.0" prefWidth="112.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="112.0" styleClass="sidebar-headline" text="Score">
+                        <Label fx:id="pointsLabel" alignment="CENTER" layoutY="1.0" prefHeight="213.0" prefWidth="98.0" styleClass="digitalLetters" text="0000" textAlignment="JUSTIFY" />
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="98.0" styleClass="sidebar-headline" text="Score">
                            <effect>
                               <Lighting diffuseConstant="0.0" light="$null" specularConstant="1.0" specularExponent="2.0" surfaceScale="1.0">
                                  <bumpInput>

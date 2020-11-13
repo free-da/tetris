@@ -3,13 +3,16 @@ package application.controller;
 import application.model.TetrisShapeModel;
 
 import java.awt.Point;
+import java.util.concurrent.Flow.Subscriber;
+import java.util.concurrent.Flow.Subscription;
 
 import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.view.TetrisGridView;
 import javafx.scene.canvas.Canvas;
 
-public class TetrisGridController {
+public class TetrisGridController{
+    Subscription subscription;
 	Canvas gameboardCanvas;
 	TetrisGridModel tetrisGridModel;
 	TetrisGridView tetrisGridView;
@@ -21,8 +24,8 @@ public class TetrisGridController {
 		tetrisGridView = new TetrisGridView(tetrisGridModel.getNumberOfRows(), tetrisGridModel.getNumberOfColumns(), gameboardCanvas);
 		fillGridWithKlotzes();
 	}
-
-	private void fillGridWithKlotzes() {
+    
+	public void fillGridWithKlotzes() {
 		for(int i=0; i<tetrisGridModel.getNumberOfRows(); i++) {
 			for(int j=0; j<tetrisGridModel.getNumberOfColumns(); j++) {
 				if (tetrisGridModel.getKlotzOfCell(i, j) != KlotzTypeModel.NoKlotz) {
@@ -40,11 +43,12 @@ public class TetrisGridController {
 		}
 	}
 
-	public void newTetrisShape() {
+	public TetrisShapeModel newTetrisShape() {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int rowIndex = 0;
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2 -1;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex);
 		fillGridWithKlotzes();
+		return newShape;
 	}
 }

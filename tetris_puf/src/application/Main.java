@@ -1,5 +1,6 @@
 package application;
 
+import application.controller.MainWindowController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +11,15 @@ public class Main extends Application {
 
 	@Override
     public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("GameBoard.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setTitle("PuF - Tetris");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("GameBoard.fxml"));
+		Parent root = (Parent)loader.load();
+		
+		Scene scene = new Scene(root);
+		
+		MainWindowController controller = (MainWindowController)loader.getController();
+		controller.setSceneAndSetupListeners(scene);
+        
+		stage.setTitle("PuF - Tetris");
 
         stage.setScene(scene);
         stage.show();	

@@ -1,9 +1,15 @@
 package application.model;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.concurrent.Flow.Publisher;
+import java.util.concurrent.Flow.Subscriber;
+import java.util.concurrent.SubmissionPublisher;
+
+import application.controller.TetrisGridController;
 
 public class TetrisShapeModel {
-	Point startPositionCoordinate;
+	Point positionCoordinate;
 	int[][] threeKlotzDistancesRelativeToStartPosition;
 	KlotzTypeModel klotzType;
 
@@ -11,7 +17,7 @@ public class TetrisShapeModel {
 		this.klotzType = klotzType;
 		switch (klotzType) {
 		case IKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			positionCoordinate = new Point(rowIndex, columnIndex);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{1, 0},
 				{2, 0},
@@ -19,7 +25,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case OKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			positionCoordinate = new Point(rowIndex, columnIndex);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{0, -1},
 				{1, 0},
@@ -27,7 +33,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case JKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			positionCoordinate = new Point(rowIndex, columnIndex-1);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{1, 0},
 				{0, 1},
@@ -35,7 +41,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case LKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			positionCoordinate = new Point(rowIndex, columnIndex-1);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{1, 0},
 				{0, 1},
@@ -43,7 +49,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case ZKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			positionCoordinate = new Point(rowIndex, columnIndex-1);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{0, 1},
 				{1, 1},
@@ -51,7 +57,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case TKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex-1);
+			positionCoordinate = new Point(rowIndex, columnIndex-1);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{0, 1},
 				{1, 1},
@@ -59,7 +65,7 @@ public class TetrisShapeModel {
 			};
 			break;
 		case SKlotz:
-			startPositionCoordinate = new Point(rowIndex, columnIndex);
+			positionCoordinate = new Point(rowIndex, columnIndex);
 			threeKlotzDistancesRelativeToStartPosition = new int[][]{
 				{0, 1},
 				{1, 0},
@@ -71,10 +77,10 @@ public class TetrisShapeModel {
 	
 	public Point[] getFourKlotzCoordinates() {
 		Point[] fourCoordinates = new Point[] {
-			startPositionCoordinate,
-			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
-			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
-			new Point((int)startPositionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)startPositionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
+			positionCoordinate,
+			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
+			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
+			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
 
 		};
 		return fourCoordinates;
@@ -83,4 +89,28 @@ public class TetrisShapeModel {
 	public KlotzTypeModel getKlotzType() {
 		return klotzType;
 	}
+	
+	public Point getPositionCoordinate() {
+		return positionCoordinate;
+	}
+	
+	public void setPositionCoordinate(int x, int y) {
+		positionCoordinate = new Point(x,y);
+	}
+
+	public void moveLeft() {
+		setPositionCoordinate((int)positionCoordinate.getX() -1, (int)positionCoordinate.getY());
+		System.out.println(getPositionCoordinate());
+	}
+
+	public void moveRight() {
+		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+		System.out.println(getPositionCoordinate());
+	}
+
+	public void drop() {
+		// TODO Auto-generated method stub
+		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+	}
+
 }
