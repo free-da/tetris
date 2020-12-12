@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-// REYKO LÖSCHENGIT  b
+
 public class Main extends Application {
 
 	@Override
