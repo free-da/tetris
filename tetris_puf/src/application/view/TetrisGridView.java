@@ -21,7 +21,7 @@ public class TetrisGridView {
         drawGridLines(graphicsContext);
 	}
 
-	public void setKlotz(int rowIndex, int columnIndex, KlotzTypeModel klotzType) {
+	public void setKlotz(int columnIndex, int rowIndex, KlotzTypeModel klotzType) {
 		Color color;
 		switch (klotzType) {
 			case IKlotz:
