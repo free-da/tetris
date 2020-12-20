@@ -16,13 +16,8 @@ public class InputEventController {
 		
 		scene.setOnKeyPressed(event -> {
 			
-//	        double change = 10.0;
-//	        //Add shift modifier to simulate "Running Speed"
-//	        if(event.isShiftDown()) { change = 50.0; }
-//	        //What key did the user press?
 	        KeyCode keycode = event.getCode();
 	        System.out.println(keycode);
-//	        //Step 2c: Add Zoom controls
 	        if(keycode == KeyCode.LEFT) { 
 	        	shape.moveLeft(grid);
         	}
@@ -35,9 +30,6 @@ public class InputEventController {
 	        if(keycode == KeyCode.UP) {
 	        	shape.moveUp(grid);
 	        }
-//	        //Step 2d:  Add Strafe controls
-//	        if(keycode == KeyCode.A) { camera.setTranslateX(camera.getTranslateX() - change); }
-//	        if(keycode == KeyCode.D) { camera.setTranslateX(camera.getTranslateX() + change); }
 	    });    
 	}
 }

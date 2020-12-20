@@ -8,9 +8,11 @@ public class TetrisShapeModel {
 	Point positionCoordinate;
 	int[][] threeKlotzDistancesRelativeToStartPosition;
 	KlotzTypeModel klotzType;
+	TetrisGridModel tetrisGridModel;
 
-	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex) {
+	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel) {
 		this.klotzType = klotzType;
+		this.tetrisGridModel = tetrisGridModel;
 		switch (klotzType) {
 		case IKlotz:
 			positionCoordinate = new Point(rowIndex, columnIndex);
@@ -95,13 +97,17 @@ public class TetrisShapeModel {
 	}
 
 	public void moveLeft(TetrisGridController grid) {
-		setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()-1);
-		grid.refreshGrid();
+		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
+			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()-1);
+			grid.refreshGrid();	
+		}
 	}
 
 	public void moveRight(TetrisGridController grid) {
-		setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()+1);
-		grid.refreshGrid();
+		if ((0 <= (int)positionCoordinate.getY()+1) && ((int)positionCoordinate.getY()+1 <= tetrisGridModel.getNumberOfColumns() -1)) {
+			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()+1);
+			grid.refreshGrid();
+		}
 	}
 
 	public void drop(TetrisGridController grid) {

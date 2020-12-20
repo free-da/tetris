@@ -53,7 +53,7 @@ public class TetrisGridController {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int rowIndex = 0;
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2 -1;
-		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex);
+		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
 		fillGridWithKlotzes();
 		return newShape;
 	}

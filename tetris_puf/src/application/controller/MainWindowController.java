@@ -26,7 +26,7 @@ public class MainWindowController {
 
 		TetrisGridModel nextGridModel = new TetrisGridModel(16, 7);
 		NextGridController nextGridController = new NextGridController(nextUpCanvas, nextGridModel);
-//		nextGridController.newTetrisShape();
+		nextGridController.newTetrisShape();
 	}
 
 	public void setSceneAndSetupListeners(Scene scene) {

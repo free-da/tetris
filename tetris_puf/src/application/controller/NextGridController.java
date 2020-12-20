@@ -40,11 +40,11 @@ public class NextGridController{
 		}
 	}
 
-//	public void newTetrisShape() {
-//		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
-//		int rowIndex = nextGridModel.getNumberOfRows() / 2 - 1;
-//		int columnIndex = nextGridModel.getNumberOfColumns() / 2;
-//		nextShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex);
-//		fillGridWithKlotzes();
-//	}
+	public void newTetrisShape() {
+		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
+		int rowIndex = nextGridModel.getNumberOfRows() / 2 - 1;
+		int columnIndex = nextGridModel.getNumberOfColumns() / 2;
+		nextShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, nextGridModel);
+		fillGridWithKlotzes();
+	}
 }
