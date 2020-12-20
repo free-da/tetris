@@ -73,14 +73,14 @@ public class TetrisShapeModel {
 		}
 	}
 	
+	// returns: point array of all four Klotzes of current Tetromino, starts with anchor point
 	public Point[] getFourKlotzCoordinates() {
-		Point[] fourCoordinates = new Point[] {
-			positionCoordinate,
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
-
-		};
+		Point[] fourCoordinates = new Point[] 	{
+												positionCoordinate,
+												new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
+												new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
+												new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
+												};
 		return fourCoordinates;
 	}
 	
@@ -95,16 +95,31 @@ public class TetrisShapeModel {
 	public void setPositionCoordinate(int x, int y) {
 		positionCoordinate = new Point(x,y);
 	}
+	
+	public boolean moveIsInBounds() {
+		for (Point klotzCoordinate:getFourKlotzCoordinates()) {
+			int y = (int)klotzCoordinate.getY();
+			int x = (int)klotzCoordinate.getX();
+			System.out.print("("+ x +","); //DEBUG
+			System.out.println(y+ ")"); //DEBUG
+			if ( (1 >= y-1) || (y+1 > tetrisGridModel.getNumberOfColumns()) || (x+1 > tetrisGridModel.getNumberOfRows()) ) { //intentionally false
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public void moveLeft(TetrisGridController grid) {
-		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
+//		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
+		if (moveIsInBounds()) {
 			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()-1);
 			grid.refreshGrid();	
 		}
 	}
 
 	public void moveRight(TetrisGridController grid) {
-		if ((0 <= (int)positionCoordinate.getY()+1) && ((int)positionCoordinate.getY()+1 <= tetrisGridModel.getNumberOfColumns() -1)) {
+//		if ((0 <= (int)positionCoordinate.getY()+1) && ((int)positionCoordinate.getY()+1 <= tetrisGridModel.getNumberOfColumns() -1)) {
+		if (moveIsInBounds()) {
 			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()+1);
 			grid.refreshGrid();
 		}
@@ -117,8 +132,10 @@ public class TetrisShapeModel {
 	}
 
 	public void moveDown(TetrisGridController grid) {
-		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
-		grid.refreshGrid();
+		if (moveIsInBounds()) {
+			setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
+			grid.refreshGrid();
+		}
 	}
 
 	public void moveUp(TetrisGridController grid) {
