@@ -19,7 +19,7 @@ public class TetrisShapeModel {
 			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
-				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 3),
+				new SingleKlotzModel(VectorDirectionsModel.NORTH, 1),
 			};
 			break;
 		case OKlotz:
@@ -126,10 +126,11 @@ public class TetrisShapeModel {
 	
 	public boolean moveIsInBounds() {
 		for (Point klotzCoordinate:getFourKlotzCoordinates()) {
-			
-//			if ( (1 >= y-1) || (y+1 > tetrisGridModel.getNumberOfColumns()) || (x+1 > tetrisGridModel.getNumberOfRows()) ) { //intentionally false
-//				return false;
-//			}
+			int y = (int)klotzCoordinate.getY();
+			int x = (int)klotzCoordinate.getX();
+			if ( x < 0  || (x > tetrisGridModel.getNumberOfColumns()-3) || (y > tetrisGridModel.getNumberOfRows()) ) { // -3 is column confusion offset
+				return false;
+			}
 		}
 		return true;
 	}
@@ -145,9 +146,13 @@ public class TetrisShapeModel {
 	
 	public void moveLeft(TetrisGridController grid) {
 //		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
+		setPositionCoordinate((int)anchorPoint.getX()-1, (int)anchorPoint.getY());
 		if (moveIsInBounds()) {
-			setPositionCoordinate((int)anchorPoint.getX()-1, (int)anchorPoint.getY());
-			grid.refreshGrid();	
+			grid.refreshGrid();
+			return;
+		} else {
+			setPositionCoordinate((int)anchorPoint.getX()+1, (int)anchorPoint.getY());
+			grid.refreshGrid(); // probably superfluous
 		}
 		debugCoordinates();
 	}
@@ -168,10 +173,10 @@ public class TetrisShapeModel {
 	}
 
 	public void moveDown(TetrisGridController grid) {
-		if (moveIsInBounds()) {
+//		if (moveIsInBounds()) {
 			setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()+1);
 			grid.refreshGrid();
-		}
+//		}
 		debugCoordinates();
 	}
 
