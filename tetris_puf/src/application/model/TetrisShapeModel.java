@@ -16,12 +16,11 @@ public class TetrisShapeModel {
 		switch (klotzType) {
 		case IKlotz:
 			anchorPoint = new Point(columnIndex, rowIndex);
-			
 			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
-					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
-					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
-					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 3),
-					};
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 3),
+			};
 			break;
 		case OKlotz:
 			anchorPoint = new Point(columnIndex, rowIndex);
@@ -32,19 +31,19 @@ public class TetrisShapeModel {
 			};
 			break;
 		case JKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			anchorPoint = new Point(columnIndex, rowIndex+1);
 			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.NORTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
-				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
-				new SingleKlotzModel(VectorDirectionsModel.SOUTHEAST, 2),
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHEAST, 1),
 			};
 			break;
 		case LKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			anchorPoint = new Point(columnIndex, rowIndex+1);
 			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.NORTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
-				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
-				new SingleKlotzModel(VectorDirectionsModel.SOUTHWEST, 2),
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHWEST, 1),
 			};
 			break;
 		case ZKlotz:
@@ -83,28 +82,28 @@ public class TetrisShapeModel {
 			Point coordinate = new Point();
 			switch(Klotz.direction) {
 			case NORTH:
-				coordinate = new Point((int)anchorPoint.getX(), (int)anchorPoint.getY() - Klotz.norm);
+				coordinate.move((int)anchorPoint.getX(), (int)anchorPoint.getY() - Klotz.norm);
 				break;
 			case NORTHWEST:
-				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
+				coordinate.move((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
 				break;
 			case WEST:
-				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY());
+				coordinate.move((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY());
 				break;
 			case SOUTHWEST:
-				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
+				coordinate.move((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
 				break;
 			case SOUTH:
-				coordinate = new Point((int)anchorPoint.getX(), (int)anchorPoint.getY() + Klotz.norm);
+				coordinate.move((int)anchorPoint.getX(), (int)anchorPoint.getY() + Klotz.norm);
 				break;
 			case SOUTHEAST:
-				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
+				coordinate.move((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
 				break;
 			case EAST:
-				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY());
+				coordinate.move((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY());
 				break;
 			case NORTHEAST:
-				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
+				coordinate.move((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
 				break;
 			}
 			fourCoordinates[counter] = coordinate;
