@@ -5,8 +5,8 @@ import java.awt.Point;
 import application.controller.TetrisGridController;
 
 public class TetrisShapeModel {
-	Point positionCoordinate;
-	int[][] threeKlotzDistancesRelativeToStartPosition;
+	Point anchorPoint;
+	SingleKlotzModel[] threeKlotzVectorsRelativeToAnchorPoint;
 	KlotzTypeModel klotzType;
 	TetrisGridModel tetrisGridModel;
 
@@ -15,59 +15,60 @@ public class TetrisShapeModel {
 		this.tetrisGridModel = tetrisGridModel;
 		switch (klotzType) {
 		case IKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{0, 1},
-				{0, 2},
-				{0, 3}
-			};
+			anchorPoint = new Point(columnIndex, rowIndex);
+			
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
+					new SingleKlotzModel(VectorDirectionsModel.SOUTH, 3),
+					};
 			break;
 		case OKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{-1, 0},
-				{0, 1},
-				{-1, 1}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHWEST, 1),	
 			};
 			break;
 		case JKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{0, 1},
-				{1, 0},
-				{2, 0}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHEAST, 2),
 			};
 			break;
 		case LKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{0, 1},
-				{1, 0},
-				{2, 0}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHWEST, 2),
 			};
 			break;
 		case ZKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{1, 0},
-				{1, 1},
-				{2, 1}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.EAST, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHWEST, 1),			
 			};
 			break;
 		case TKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{1, 0},
-				{1, 1},
-				{2, 0}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.EAST, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),
 			};
 			break;
 		case SKlotz:
-			positionCoordinate = new Point(columnIndex, rowIndex);
-			threeKlotzDistancesRelativeToStartPosition = new int[][]{
-				{1, 0},
-				{0, 1},
-				{-1, 1}
+			anchorPoint = new Point(columnIndex, rowIndex);
+			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
+				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
+				new SingleKlotzModel(VectorDirectionsModel.SOUTHEAST, 1),
 			};
 			break;
 		}
@@ -75,12 +76,40 @@ public class TetrisShapeModel {
 	
 	// returns: point array of all four Klotzes of current Tetromino, starts with anchor point
 	public Point[] getFourKlotzCoordinates() {
-		Point[] fourCoordinates = new Point[] 	{
-			positionCoordinate,
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[0][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[0][1]),
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[1][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[1][1]),
-			new Point((int)positionCoordinate.getX() + threeKlotzDistancesRelativeToStartPosition[2][0], (int)positionCoordinate.getY() + threeKlotzDistancesRelativeToStartPosition[2][1]),
-			};
+		Point[] fourCoordinates = new Point[4];
+		fourCoordinates[0] = anchorPoint;
+		int counter = 1;
+		for (SingleKlotzModel Klotz : threeKlotzVectorsRelativeToAnchorPoint) {
+			Point coordinate = new Point();
+			switch(Klotz.direction) {
+			case NORTH:
+				coordinate = new Point((int)anchorPoint.getX(), (int)anchorPoint.getY() - Klotz.norm);
+				break;
+			case NORTHWEST:
+				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
+				break;
+			case WEST:
+				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY());
+				break;
+			case SOUTHWEST:
+				coordinate = new Point((int)anchorPoint.getX() + Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
+				break;
+			case SOUTH:
+				coordinate = new Point((int)anchorPoint.getX(), (int)anchorPoint.getY() + Klotz.norm);
+				break;
+			case SOUTHEAST:
+				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() + Klotz.norm);
+				break;
+			case EAST:
+				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY());
+				break;
+			case NORTHEAST:
+				coordinate = new Point((int)anchorPoint.getX() - Klotz.norm, (int)anchorPoint.getY() - Klotz.norm);
+				break;
+			}
+			fourCoordinates[counter] = coordinate;
+			counter++;
+		}
 		return fourCoordinates;
 	}
 	
@@ -89,11 +118,11 @@ public class TetrisShapeModel {
 	}
 	
 	public Point getPositionCoordinate() {
-		return positionCoordinate;
+		return anchorPoint;
 	}
 	
 	public void setPositionCoordinate(int x, int y) {
-		positionCoordinate.move(x,y);
+		anchorPoint.move(x,y);
 	}
 	
 	public boolean moveIsInBounds() {
@@ -118,7 +147,7 @@ public class TetrisShapeModel {
 	public void moveLeft(TetrisGridController grid) {
 //		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
 		if (moveIsInBounds()) {
-			setPositionCoordinate((int)positionCoordinate.getX()-1, (int)positionCoordinate.getY());
+			setPositionCoordinate((int)anchorPoint.getX()-1, (int)anchorPoint.getY());
 			grid.refreshGrid();	
 		}
 		debugCoordinates();
@@ -127,7 +156,7 @@ public class TetrisShapeModel {
 	public void moveRight(TetrisGridController grid) {
 //		if ((0 <= (int)positionCoordinate.getY()+1) && ((int)positionCoordinate.getY()+1 <= tetrisGridModel.getNumberOfColumns() -1)) {
 		if (moveIsInBounds()) {
-			setPositionCoordinate((int)positionCoordinate.getX()+1, (int)positionCoordinate.getY());
+			setPositionCoordinate((int)anchorPoint.getX()+1, (int)anchorPoint.getY());
 			grid.refreshGrid();
 		}
 		debugCoordinates();
@@ -141,7 +170,7 @@ public class TetrisShapeModel {
 
 	public void moveDown(TetrisGridController grid) {
 		if (moveIsInBounds()) {
-			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()+1);
+			setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()+1);
 			grid.refreshGrid();
 		}
 		debugCoordinates();
@@ -149,7 +178,7 @@ public class TetrisShapeModel {
 
 	public void moveUp(TetrisGridController grid) {
 		if (moveIsInBounds()) {
-			setPositionCoordinate((int)positionCoordinate.getX(), (int)positionCoordinate.getY()-1);
+			setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()-1);
 			grid.refreshGrid();
 		}
 		debugCoordinates();
