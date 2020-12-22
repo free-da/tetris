@@ -23,11 +23,11 @@ public class NextGridController{
 	}
 
 	private void fillGridWithKlotzes() {
-		for(int i=0; i<nextGridModel.getNumberOfRows(); i++) {
-			for(int j=0; j<nextGridModel.getNumberOfColumns(); j++) {
-				if (nextGridModel.getKlotzOfCell(i, j) != KlotzTypeModel.NoKlotz) {
-					KlotzTypeModel klotz = nextGridModel.getKlotzOfCell(i, j) ;
-					nextGridView.setKlotz(i, j, klotz);
+		for(int rows=0; rows<nextGridModel.getNumberOfRows(); rows++) {
+			for(int columns=0; columns<nextGridModel.getNumberOfColumns(); columns++) {
+				if (nextGridModel.getKlotzOfCell(rows, columns) != KlotzTypeModel.NoKlotz) {
+					KlotzTypeModel klotz = nextGridModel.getKlotzOfCell(rows, columns) ;
+					nextGridView.setKlotz(rows, columns, klotz);
 				}
 			}
 		}

@@ -7,9 +7,9 @@ public class TetrisGridModel {
 	int numberOfRows, numberOfColumns;
 	KlotzTypeModel[][] gridOfKlotzes; 
 	
-	public TetrisGridModel(int rows, int columns) {
-		numberOfRows = rows;
-		numberOfColumns = columns;
+	public TetrisGridModel(int yGridLines, int xGridLines) {
+		numberOfRows = yGridLines;
+		numberOfColumns = xGridLines;
 		gridOfKlotzes = new KlotzTypeModel[numberOfRows][numberOfColumns];
 		for(KlotzTypeModel[] column:gridOfKlotzes) {
 			Arrays.fill(column, KlotzTypeModel.NoKlotz);	

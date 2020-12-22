@@ -23,20 +23,20 @@ public class TetrisGridController {
 	}
 	
 	public void refreshGrid() {
-		for(int i=0; i<tetrisGridModel.getNumberOfRows(); i++) {
-			for(int j=0; j<tetrisGridModel.getNumberOfColumns(); j++) {
-				tetrisGridView.setKlotz(i, j, KlotzTypeModel.NoKlotz);
+		for(int columns=0; columns<tetrisGridModel.getNumberOfColumns() -1; columns++) {
+			for(int rows=0; rows<tetrisGridModel.getNumberOfRows() -1; rows++) {
+				tetrisGridView.setKlotz(rows, columns, KlotzTypeModel.NoKlotz);
 			}
 		}
 		fillGridWithKlotzes();
 	}
 
 	public void fillGridWithKlotzes() {
-		for(int i=0; i<tetrisGridModel.getNumberOfRows(); i++) {
-			for(int j=0; j<tetrisGridModel.getNumberOfColumns(); j++) {
-				if (tetrisGridModel.getKlotzOfCell(i, j) != KlotzTypeModel.NoKlotz) {
-					KlotzTypeModel klotz = tetrisGridModel.getKlotzOfCell(i, j) ;
-					tetrisGridView.setKlotz(i, j, klotz);
+		for(int columns=0; columns<tetrisGridModel.getNumberOfColumns()-1; columns++) {
+			for(int rows=0; rows<tetrisGridModel.getNumberOfRows()-1; rows++) {
+				if (tetrisGridModel.getKlotzOfCell(rows, columns) != KlotzTypeModel.NoKlotz) {
+					KlotzTypeModel klotz = tetrisGridModel.getKlotzOfCell(rows, columns) ;
+					tetrisGridView.setKlotz(rows, columns, klotz);
 				}
 			}
 		}
@@ -44,7 +44,7 @@ public class TetrisGridController {
 			Point[] coordinates = newShape.getFourKlotzCoordinates();
 			for(Point coordinate:coordinates) {
 				KlotzTypeModel klotz = newShape.getKlotzType() ;
-				tetrisGridView.setKlotz((int)coordinate.getX(), (int)coordinate.getY(), klotz);
+				tetrisGridView.setKlotz((int)coordinate.getY(), (int)coordinate.getX(), klotz);
 			}
 		}
 	}
