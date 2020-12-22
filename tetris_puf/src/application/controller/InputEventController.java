@@ -27,8 +27,11 @@ public class InputEventController {
 	        if(keycode == KeyCode.DOWN) {
 	        	shape.moveDown(grid);
 	        }
-	        if(keycode == KeyCode.UP) {
-	        	shape.moveUp(grid);
+	        if(keycode == KeyCode.W) {
+	        	shape.rotateRight(grid);
+	        }
+	        if(keycode == KeyCode.S) {
+	        	shape.rotateLeft(grid);
 	        }
 	    });    
 	}

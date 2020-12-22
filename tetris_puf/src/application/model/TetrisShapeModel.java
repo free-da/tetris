@@ -175,11 +175,17 @@ public class TetrisShapeModel {
 		debugCoordinates();
 	}
 
-	public void moveUp(TetrisGridController grid) {
-		if (moveIsInBounds()) {
-			setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()-1);
+	public void rotateRight(TetrisGridController grid) {
+		for (SingleKlotzModel Klotz : threeKlotzVectorsRelativeToAnchorPoint) {
+			Klotz.direction = VectorDirectionsModel.rotateRight(Klotz.direction);
 			grid.refreshGrid();
 		}
-		debugCoordinates();
+	}
+	
+	public void rotateLeft(TetrisGridController grid) {
+		for (SingleKlotzModel Klotz : threeKlotzVectorsRelativeToAnchorPoint) {
+			Klotz.direction = VectorDirectionsModel.rotateLeft(Klotz.direction);
+			grid.refreshGrid();
+		}
 	}
 }
