@@ -18,7 +18,7 @@ public class NextGridController{
 	public NextGridController(Canvas canvas, TetrisGridModel nextGridModel) {
 		this.nextCanvas = canvas;
 		this.nextGridModel = nextGridModel;
-		nextGridView = new TetrisGridView(nextGridModel.getNumberOfYGridLines(), nextGridModel.getNumberOfXGridLines(), canvas);
+		nextGridView = new TetrisGridView(nextGridModel.getNumberOfRows(), nextGridModel.getNumberOfColumns(), canvas);
 		fillGridWithKlotzes();
 	}
 
@@ -35,15 +35,15 @@ public class NextGridController{
 			Point[] coordinates = nextShape.getFourKlotzCoordinates();
 			for(Point coordinate:coordinates) {
 				KlotzTypeModel klotz = nextShape.getKlotzType() ;
-				nextGridView.setKlotz((int)coordinate.getX(), (int)coordinate.getY(), klotz);
+				nextGridView.setKlotz((int)coordinate.getY(), (int)coordinate.getX(), klotz);
 			}
 		}
 	}
 
 	public void newTetrisShape() {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
-		int rowIndex = nextGridModel.getNumberOfYGridLines() / 2 - 1;
-		int columnIndex = nextGridModel.getNumberOfXGridLines() / 2;
+		int rowIndex = nextGridModel.getNumberOfRows() / 2 - 1;
+		int columnIndex = nextGridModel.getNumberOfColumns() / 2;
 		nextShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, nextGridModel);
 		fillGridWithKlotzes();
 	}

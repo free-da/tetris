@@ -20,11 +20,11 @@ public class MainWindowController {
 	
 
 	public void initialize() {
-		TetrisGridModel gameboardGridModel = new TetrisGridModel(32, 16);
+		TetrisGridModel gameboardGridModel = new TetrisGridModel(31, 15);
 		gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
 		newShape = gameBoardGridController.newTetrisShape();
 
-		TetrisGridModel nextGridModel = new TetrisGridModel(16, 7);
+		TetrisGridModel nextGridModel = new TetrisGridModel(14, 7);
 		NextGridController nextGridController = new NextGridController(nextUpCanvas, nextGridModel);
 		nextGridController.newTetrisShape();
 	}

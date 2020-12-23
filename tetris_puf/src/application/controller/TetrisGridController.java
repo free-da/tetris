@@ -18,7 +18,7 @@ public class TetrisGridController {
 	public TetrisGridController(Canvas gameboardCanvas, TetrisGridModel tetrisGridModel) {
 		this.gameboardCanvas = gameboardCanvas;
 		this.tetrisGridModel = tetrisGridModel;
-		tetrisGridView = new TetrisGridView(tetrisGridModel.getNumberOfYGridLines(), tetrisGridModel.getNumberOfXGridLines(), gameboardCanvas);
+		tetrisGridView = new TetrisGridView(tetrisGridModel.getNumberOfRows(), tetrisGridModel.getNumberOfColumns(), gameboardCanvas);
 		fillGridWithKlotzes();
 	}
 	
@@ -52,7 +52,7 @@ public class TetrisGridController {
 	public TetrisShapeModel newTetrisShape() {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int rowIndex = 0;
-		int columnIndex = tetrisGridModel.getNumberOfXGridLines() / 2 -1;
+		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
 		fillGridWithKlotzes();
 		return newShape;

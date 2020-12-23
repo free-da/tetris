@@ -13,10 +13,10 @@ public class TetrisGridView {
 	Canvas canvas;
 	int numberOfYGridLines, numberOfXGridLines;
 	
-	public TetrisGridView(int yGridLines, int xGridLines, Canvas tetrisGridCanvas) {
+	public TetrisGridView(int rows, int columns, Canvas tetrisGridCanvas) {
 		canvas = tetrisGridCanvas;
-		numberOfYGridLines = yGridLines;
-		numberOfXGridLines = xGridLines;
+		numberOfYGridLines = rows + 1;
+		numberOfXGridLines = columns + 1;
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         drawGridLines(graphicsContext);
 	}

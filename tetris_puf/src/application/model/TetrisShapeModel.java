@@ -128,7 +128,7 @@ public class TetrisShapeModel {
 		for (Point klotzCoordinate:getFourKlotzCoordinates()) {
 			int y = (int)klotzCoordinate.getY();
 			int x = (int)klotzCoordinate.getX();
-			if ( x < 0  || (x >= tetrisGridModel.getNumberOfColumns()) || (y > tetrisGridModel.getNumberOfRows()) ) { 
+			if ( x < 0  || (x >= tetrisGridModel.getNumberOfColumns()-1) || (y > tetrisGridModel.getNumberOfRows()) ) { 
 				return false;
 			}
 		}

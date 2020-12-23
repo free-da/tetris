@@ -7,24 +7,24 @@ public class TetrisGridModel {
 	int numberOfRows, numberOfColumns, numberOfXGridLines, numberOfYGridLines;
 	KlotzTypeModel[][] gridOfKlotzes; 
 	
-	public TetrisGridModel(int yGridLines, int xGridLines) {
-		numberOfRows = yGridLines - 2;
-		numberOfColumns = xGridLines - 2;
-		numberOfXGridLines = xGridLines;
-		numberOfYGridLines = yGridLines;
+	public TetrisGridModel(int rows, int columns) {
+		numberOfRows = rows;
+		numberOfColumns = columns;
+		numberOfXGridLines = columns + 2;
+		numberOfYGridLines = rows + 2;
 		gridOfKlotzes = new KlotzTypeModel[numberOfRows][numberOfColumns];
 		for(KlotzTypeModel[] column:gridOfKlotzes) {
 			Arrays.fill(column, KlotzTypeModel.NoKlotz);	
 		}
 	}
-
-	public int getNumberOfXGridLines() {
-		return numberOfXGridLines;
-	}
-	
-	public int getNumberOfYGridLines() {
-		return numberOfYGridLines;
-	}
+//
+//	public int getNumberOfXGridLines() {
+//		return numberOfXGridLines;
+//	}
+//	
+//	public int getNumberOfYGridLines() {
+//		return numberOfYGridLines;
+//	}
 	
 	public int getNumberOfRows() {
 		return numberOfRows;
