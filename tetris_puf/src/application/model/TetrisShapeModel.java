@@ -176,7 +176,11 @@ public class TetrisShapeModel {
 	public void rotateRight(TetrisGridController grid) {
 		for (SingleKlotzModel Klotz : threeKlotzVectorsRelativeToAnchorPoint) {
 			Klotz.direction = VectorDirectionsModel.rotateRight(Klotz.direction);
-			grid.refreshGrid();
+			if(moveIsInBounds()) {
+				grid.refreshGrid();
+			} else {
+				this.rotateLeft(grid);
+			}
 		}
 	}
 	
