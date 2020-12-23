@@ -1,12 +1,20 @@
 package application.model;
 
 public class SingleKlotzModel {
-	VectorDirectionsModel direction;
+	private VectorDirectionsModel direction;
 	int norm;
 	
 	public SingleKlotzModel(VectorDirectionsModel direction, int norm) {
-		this.direction = direction;
+		this.setDirection(direction);
 		this.norm = norm;
+	}
+
+	public VectorDirectionsModel getDirection() {
+		return direction;
+	}
+
+	public void setDirection(VectorDirectionsModel direction) {
+		this.direction = direction;
 	}
 
 }

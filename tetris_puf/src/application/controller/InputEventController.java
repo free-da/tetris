@@ -6,12 +6,12 @@ import javafx.scene.input.KeyCode;
 
 public class InputEventController {
 	Scene scene;
-	TetrisShapeModel shape;
+	MovementController move;
 	TetrisGridController grid;
 	
-	public InputEventController(Scene scene, TetrisShapeModel shape, TetrisGridController grid) {
+	public InputEventController(Scene scene, MovementController move, TetrisGridController grid) {
 		this.scene = scene;
-		this.shape = shape;
+		this.move = move;
 		this.grid = grid;
 		
 		scene.setOnKeyPressed(event -> {
@@ -19,20 +19,21 @@ public class InputEventController {
 	        KeyCode keycode = event.getCode();
 	        System.out.println(keycode);
 	        if(keycode == KeyCode.LEFT) { 
-	        	shape.moveLeft(grid);
+	        	move.moveLeft(grid);
         	}
 	        if(keycode == KeyCode.RIGHT) { 
-	        	shape.moveRight(grid);
+	        	move.moveRight(grid);
 	        }
 	        if(keycode == KeyCode.DOWN) {
-	        	shape.moveDown(grid);
+	        	move.moveDown(grid);
 	        }
 	        if(keycode == KeyCode.W) {
-	        	shape.rotateRight(grid);
+	        	move.rotateRight(grid);
 	        }
 	        if(keycode == KeyCode.S) {
-	        	shape.rotateLeft(grid);
+	        	move.rotateLeft(grid);
 	        }
+	        move.debugCoordinates();
 	    });    
 	}
 }
