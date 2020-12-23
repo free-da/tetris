@@ -15,7 +15,7 @@ public class TetrisShapeModel {
 		this.tetrisGridModel = tetrisGridModel;
 		switch (klotzType) {
 		case IKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			anchorPoint = new Point(columnIndex, rowIndex+1);
 			threeKlotzVectorsRelativeToAnchorPoint = new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
@@ -128,7 +128,7 @@ public class TetrisShapeModel {
 		for (Point klotzCoordinate:getFourKlotzCoordinates()) {
 			int y = (int)klotzCoordinate.getY();
 			int x = (int)klotzCoordinate.getX();
-			if ( x < 0  || (x > tetrisGridModel.getNumberOfColumns()-3) || (y > tetrisGridModel.getNumberOfRows()) ) { // -3 is column confusion offset
+			if ( x < 0  || (x >= tetrisGridModel.getNumberOfColumns()) || (y > tetrisGridModel.getNumberOfRows()) ) { 
 				return false;
 			}
 		}
@@ -145,7 +145,6 @@ public class TetrisShapeModel {
 	}
 	
 	public void moveLeft(TetrisGridController grid) {
-//		if ((0 <= (int)positionCoordinate.getY()-1) && ((int)positionCoordinate.getY()-1 <= tetrisGridModel.getNumberOfColumns())) {
 		setPositionCoordinate((int)anchorPoint.getX()-1, (int)anchorPoint.getY());
 		if (moveIsInBounds()) {
 			grid.refreshGrid();
@@ -158,7 +157,6 @@ public class TetrisShapeModel {
 	}
 
 	public void moveRight(TetrisGridController grid) {
-//		if ((0 <= (int)positionCoordinate.getY()+1) && ((int)positionCoordinate.getY()+1 <= tetrisGridModel.getNumberOfColumns() -1)) {
 		if (moveIsInBounds()) {
 			setPositionCoordinate((int)anchorPoint.getX()+1, (int)anchorPoint.getY());
 			grid.refreshGrid();
@@ -167,16 +165,11 @@ public class TetrisShapeModel {
 	}
 
 	public void drop(TetrisGridController grid) {
-		// TODO Auto-generated method stub
-//		setPositionCoordinate((int)positionCoordinate.getX() +1, (int)positionCoordinate.getY());
-//		grid.refreshGrid();
 	}
 
 	public void moveDown(TetrisGridController grid) {
-//		if (moveIsInBounds()) {
-			setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()+1);
-			grid.refreshGrid();
-//		}
+		setPositionCoordinate((int)anchorPoint.getX(), (int)anchorPoint.getY()+1);
+		grid.refreshGrid();
 		debugCoordinates();
 	}
 

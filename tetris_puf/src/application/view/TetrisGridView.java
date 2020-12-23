@@ -11,12 +11,12 @@ public class TetrisGridView {
 	double cellSize = 12;
 	double borderWidth = 2;
 	Canvas canvas;
-	int numberOfRows, numberOfColumns;
+	int numberOfYGridLines, numberOfXGridLines;
 	
-	public TetrisGridView(int rows, int columns, Canvas tetrisGridCanvas) {
+	public TetrisGridView(int yGridLines, int xGridLines, Canvas tetrisGridCanvas) {
 		canvas = tetrisGridCanvas;
-		numberOfRows = rows;
-		numberOfColumns = columns;
+		numberOfYGridLines = yGridLines;
+		numberOfXGridLines = xGridLines;
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         drawGridLines(graphicsContext);
 	}
@@ -82,16 +82,14 @@ public class TetrisGridView {
 		gc.setStroke(Color.DIMGREY);
 		double xStart = 0;
 		double yStart = 0;
-		for (int i=0; i<numberOfRows; i++) { 
+		for (int i=0; i<numberOfYGridLines; i++) { 
 	        gc.strokeLine(0, yStart, canvas.getWidth(), yStart);
 	        yStart += cellSize + borderWidth;
 		}
-		for (int j=0; j<numberOfColumns; j++) {
+		for (int j=0; j<numberOfXGridLines; j++) {
 			gc.strokeLine(xStart, 0, xStart, canvas.getHeight());
 	        xStart += cellSize + borderWidth;
 		}
 	}
 
-//	public void clearCanvas() {
-//	}
 }

@@ -4,16 +4,26 @@ import java.util.Arrays;
 
 public class TetrisGridModel {
 
-	int numberOfRows, numberOfColumns;
+	int numberOfRows, numberOfColumns, numberOfXGridLines, numberOfYGridLines;
 	KlotzTypeModel[][] gridOfKlotzes; 
 	
 	public TetrisGridModel(int yGridLines, int xGridLines) {
-		numberOfRows = yGridLines;
-		numberOfColumns = xGridLines;
+		numberOfRows = yGridLines - 2;
+		numberOfColumns = xGridLines - 2;
+		numberOfXGridLines = xGridLines;
+		numberOfYGridLines = yGridLines;
 		gridOfKlotzes = new KlotzTypeModel[numberOfRows][numberOfColumns];
 		for(KlotzTypeModel[] column:gridOfKlotzes) {
 			Arrays.fill(column, KlotzTypeModel.NoKlotz);	
 		}
+	}
+
+	public int getNumberOfXGridLines() {
+		return numberOfXGridLines;
+	}
+	
+	public int getNumberOfYGridLines() {
+		return numberOfYGridLines;
 	}
 	
 	public int getNumberOfRows() {
