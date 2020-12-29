@@ -71,39 +71,44 @@ public class TetrisShapeModel {
 		}
 	}
 	
+	public Point getSingleKlotzCoordinate(SingleKlotzModel klotz) {
+		Point coordinate = new Point();
+		switch(klotz.getDirection()) {
+		case NORTH:
+			coordinate.move((int)getAnchorPoint().getX(), (int)getAnchorPoint().getY() - klotz.norm);
+			break;
+		case NORTHWEST:
+			coordinate.move((int)getAnchorPoint().getX() + klotz.norm, (int)getAnchorPoint().getY() - klotz.norm);
+			break;
+		case WEST:
+			coordinate.move((int)getAnchorPoint().getX() + klotz.norm, (int)getAnchorPoint().getY());
+			break;
+		case SOUTHWEST:
+			coordinate.move((int)getAnchorPoint().getX() + klotz.norm, (int)getAnchorPoint().getY() + klotz.norm);
+			break;
+		case SOUTH:
+			coordinate.move((int)getAnchorPoint().getX(), (int)getAnchorPoint().getY() + klotz.norm);
+			break;
+		case SOUTHEAST:
+			coordinate.move((int)getAnchorPoint().getX() - klotz.norm, (int)getAnchorPoint().getY() + klotz.norm);
+			break;
+		case EAST:
+			coordinate.move((int)getAnchorPoint().getX() - klotz.norm, (int)getAnchorPoint().getY());
+			break;
+		case NORTHEAST:
+			coordinate.move((int)getAnchorPoint().getX() - klotz.norm, (int)getAnchorPoint().getY() - klotz.norm);
+			break;
+		}
+		return coordinate;
+	}
+	
 	// returns: point array of all four Klotzes of current Tetromino, starts with anchor point
 	public Point[] getFourKlotzCoordinates() {
 		Point[] fourCoordinates = new Point[4];
 		fourCoordinates[0] = getAnchorPoint();
 		int counter = 1;
-		for (SingleKlotzModel Klotz : getThreeKlotzVectorsRelativeToAnchorPoint()) {
-			Point coordinate = new Point();
-			switch(Klotz.getDirection()) {
-			case NORTH:
-				coordinate.move((int)getAnchorPoint().getX(), (int)getAnchorPoint().getY() - Klotz.norm);
-				break;
-			case NORTHWEST:
-				coordinate.move((int)getAnchorPoint().getX() + Klotz.norm, (int)getAnchorPoint().getY() - Klotz.norm);
-				break;
-			case WEST:
-				coordinate.move((int)getAnchorPoint().getX() + Klotz.norm, (int)getAnchorPoint().getY());
-				break;
-			case SOUTHWEST:
-				coordinate.move((int)getAnchorPoint().getX() + Klotz.norm, (int)getAnchorPoint().getY() + Klotz.norm);
-				break;
-			case SOUTH:
-				coordinate.move((int)getAnchorPoint().getX(), (int)getAnchorPoint().getY() + Klotz.norm);
-				break;
-			case SOUTHEAST:
-				coordinate.move((int)getAnchorPoint().getX() - Klotz.norm, (int)getAnchorPoint().getY() + Klotz.norm);
-				break;
-			case EAST:
-				coordinate.move((int)getAnchorPoint().getX() - Klotz.norm, (int)getAnchorPoint().getY());
-				break;
-			case NORTHEAST:
-				coordinate.move((int)getAnchorPoint().getX() - Klotz.norm, (int)getAnchorPoint().getY() - Klotz.norm);
-				break;
-			}
+		for (SingleKlotzModel klotz : getThreeKlotzVectorsRelativeToAnchorPoint()) {
+			Point coordinate = getSingleKlotzCoordinate(klotz);
 			fourCoordinates[counter] = coordinate;
 			counter++;
 		}

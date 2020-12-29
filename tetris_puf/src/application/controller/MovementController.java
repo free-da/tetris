@@ -21,11 +21,11 @@ public class MovementController {
 		this.nextController = nextController;
 	}
 	
-	public boolean positionIsLegal() {
+	public boolean positionIsLegal(int offsetX, int offsetY) {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
-			int y = (int)klotzCoordinate.getY();
-			int x = (int)klotzCoordinate.getX();
-			if ( x < 0  || (x >= gridModel.getNumberOfColumns()-1) || (y >= gridModel.getNumberOfRows() -1) || (gridModel.getKlotzOfCell(y, x) != KlotzTypeModel.NoKlotz) ) { 
+			int y = (int)klotzCoordinate.getY() + offsetY;
+			int x = (int)klotzCoordinate.getX() + offsetX;
+			if ( x < 0  || (x >= gridModel.getNumberOfColumns()) || (y >= gridModel.getNumberOfRows()) || (gridModel.getKlotzOfCell(y, x) != KlotzTypeModel.NoKlotz) ) { 
 				return false;
 			}
 		}
@@ -41,21 +41,24 @@ public class MovementController {
 		}
 	}
 	
+	private void setShapeToNewPositionAndRefreshGrid(int offsetX, int offsetY) {
+		shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX() + offsetX, (int)shapeModel.getAnchorPoint().getY() + offsetY);
+		gridController.refreshGrid();
+	}
+	
 	public void moveLeft() {
-		shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX()-1, (int)shapeModel.getAnchorPoint().getY());
-		if (positionIsLegal()) {
-			gridController.refreshGrid();
-			return;
-		} else {
-			shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX()+1, (int)shapeModel.getAnchorPoint().getY());
-			gridController.refreshGrid(); // probably superfluous
+		int offsetX = -1;
+		int offsetY = 0;
+		if (positionIsLegal(offsetX, offsetY)) {
+			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
 		}
 	}
 
 	public void moveRight() {
-		if (positionIsLegal()) {
-			shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX()+1, (int)shapeModel.getAnchorPoint().getY());
-			gridController.refreshGrid();
+		int offsetX = 1;
+		int offsetY = 0;
+		if (positionIsLegal(offsetX, offsetY)) {
+			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
 		}
 	}
 
@@ -63,10 +66,10 @@ public class MovementController {
 	}
 
 	public void moveDown() {
-		if (positionIsLegal()) {
-			Point anchorPoint = shapeModel.getAnchorPoint();
-			shapeModel.setAnchorPoint((int)anchorPoint.getX(), (int)anchorPoint.getY()+1);
-			gridController.refreshGrid();
+		int offsetX = 0;
+		int offsetY = 1;
+		if (positionIsLegal(offsetX, offsetY)) {
+			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
 		} else {
 			lockInGridAndMakeNewShape();
 		}
@@ -76,11 +79,11 @@ public class MovementController {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
 		}
-		putNewShapeInStartPosition();
+		putNextShapeInStartPositionAndNewShapeInNextGrid();
 		gridController.refreshGrid();
 	}
 	
-	public void putNewShapeInStartPosition() {
+	public void putNextShapeInStartPositionAndNewShapeInNextGrid() {
 		KlotzTypeModel nextShapeKlotzType = nextController.newShape.getKlotzType();
 		shapeModel = gridController.newTetrisShape(0, nextShapeKlotzType);
 		nextController.newTetrisShape(6);

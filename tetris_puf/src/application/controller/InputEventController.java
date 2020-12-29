@@ -7,7 +7,6 @@ public class InputEventController {
 	Scene scene;
 	MovementController move;
 	TetrisGridController grid;
-	NextGridController next;
 	
 	public InputEventController(Scene scene, MovementController move) {
 		this.scene = scene;
