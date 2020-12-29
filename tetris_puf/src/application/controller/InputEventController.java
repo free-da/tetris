@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.model.TetrisShapeModel;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
@@ -8,30 +7,30 @@ public class InputEventController {
 	Scene scene;
 	MovementController move;
 	TetrisGridController grid;
+	NextGridController next;
 	
-	public InputEventController(Scene scene, MovementController move, TetrisGridController grid) {
+	public InputEventController(Scene scene, MovementController move) {
 		this.scene = scene;
 		this.move = move;
-		this.grid = grid;
-		
+				
 		scene.setOnKeyPressed(event -> {
 			
 	        KeyCode keycode = event.getCode();
 	        System.out.println(keycode);
 	        if(keycode == KeyCode.LEFT) { 
-	        	move.moveLeft(grid);
+	        	move.moveLeft();
         	}
 	        if(keycode == KeyCode.RIGHT) { 
-	        	move.moveRight(grid);
+	        	move.moveRight();
 	        }
 	        if(keycode == KeyCode.DOWN) {
-	        	move.moveDown(grid);
+	        	move.moveDown();
 	        }
 	        if(keycode == KeyCode.W) {
-	        	move.rotateRight(grid);
+	        	move.rotateRight();
 	        }
 	        if(keycode == KeyCode.S) {
-	        	move.rotateLeft(grid);
+	        	move.rotateLeft();
 	        }
 	        move.debugCoordinates();
 	    });    

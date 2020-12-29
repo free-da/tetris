@@ -49,12 +49,22 @@ public class TetrisGridController {
 		}
 	}
 
-	public TetrisShapeModel newTetrisShape() {
+	public TetrisShapeModel newTetrisShape(int rowIndex) {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
-		int rowIndex = 0;
+//		int rowIndex = 0;
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
-		fillGridWithKlotzes();
+		refreshGrid();
+		return newShape;
+	}
+	
+
+	public TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
+//		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
+//		int rowIndex = 0;
+		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
+		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
+		refreshGrid();
 		return newShape;
 	}
 	

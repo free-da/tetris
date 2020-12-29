@@ -39,12 +39,22 @@ public class NextGridController{
 			}
 		}
 	}
+	
+	public void refreshGrid() {
+		for(int columns=0; columns<=nextGridModel.getNumberOfColumns(); columns++) {
+			for(int rows=0; rows<nextGridModel.getNumberOfRows(); rows++) {
+				nextGridView.setKlotz(rows, columns, KlotzTypeModel.NoKlotz);
+			}
+		}
+		fillGridWithKlotzes();
+	}
 
-	public void newTetrisShape() {
+	public TetrisShapeModel newTetrisShape() {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int rowIndex = nextGridModel.getNumberOfRows() / 2 - 1;
 		int columnIndex = nextGridModel.getNumberOfColumns() / 2;
 		nextShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, nextGridModel);
-		fillGridWithKlotzes();
+		refreshGrid();
+		return nextShape;
 	}
 }
