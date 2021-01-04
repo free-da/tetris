@@ -95,6 +95,10 @@ public class MovementController {
 	}
 
 	public void rotateRight() {
+		//do not rotate OKlotzes
+		if (shapeModel.getKlotzType()==KlotzTypeModel.OKlotz) {
+			return;
+		}
 		for (SingleKlotzModel Klotz : shapeModel.getThreeKlotzVectorsRelativeToAnchorPoint()) {
 			Klotz.setDirection(VectorDirectionsModel.rotateRight(Klotz.getDirection()));
 			gridController.refreshGrid();
@@ -102,6 +106,10 @@ public class MovementController {
 	}
 	
 	public void rotateLeft() {
+		//do not rotate OKlotzes
+		if (shapeModel.getKlotzType()==KlotzTypeModel.OKlotz) {
+			return;
+		}
 		for (SingleKlotzModel Klotz : shapeModel.getThreeKlotzVectorsRelativeToAnchorPoint()) {
 			Klotz.setDirection(VectorDirectionsModel.rotateLeft(Klotz.getDirection()));
 			gridController.refreshGrid();
