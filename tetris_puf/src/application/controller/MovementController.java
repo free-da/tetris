@@ -77,6 +77,11 @@ public class MovementController {
 	
 	public void lockInGridAndMakeNewShape() {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
+			//minimal game over
+			if ((int)klotzCoordinate.getY()==0) {
+				System.out.println("Game Over");
+	            System.exit(0);
+			}
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
 		}
 		putNextShapeInStartPositionAndNewShapeInNextGrid();

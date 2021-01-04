@@ -36,6 +36,7 @@ public class InputEventController {
 	        move.debugCoordinates();
 	    });
 		
+		//minimal game loop
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
