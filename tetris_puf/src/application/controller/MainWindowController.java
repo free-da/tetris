@@ -5,6 +5,7 @@ import application.model.TetrisShapeModel;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 
 public class MainWindowController {
 	TetrisShapeModel newShape;
@@ -14,8 +15,8 @@ public class MainWindowController {
 	
 	@FXML
 	Canvas gameboardCanvas, nextUpCanvas;
+	public Label pointsLabel;
 	
-
 	public void initialize() {
 		
 		TetrisGridModel gameboardGridModel = new TetrisGridModel(31, 15);
@@ -27,6 +28,10 @@ public class MainWindowController {
 		nextGridController.newTetrisShape(6);
 		
 		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController);
+		//bind pointsLabel
+		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());
+		gameboardGridModel.setScoreCount("0");
+		
 	}
 
 	public void setSceneAndSetupListeners(Scene scene) {

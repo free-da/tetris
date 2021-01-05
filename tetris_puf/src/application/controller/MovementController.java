@@ -82,8 +82,10 @@ public class MovementController {
 				System.out.println("Game Over");
 	            System.exit(0);
 			}
+			//end minimal game over
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
 		}
+		incrementScoreCount(50);
 		putNextShapeInStartPositionAndNewShapeInNextGrid();
 		gridController.refreshGrid();
 	}
@@ -114,5 +116,11 @@ public class MovementController {
 			Klotz.setDirection(VectorDirectionsModel.rotateLeft(Klotz.getDirection()));
 			gridController.refreshGrid();
 		}
+	}
+	
+	private void incrementScoreCount(int increment) {
+		int newScore = Integer.parseInt(gridModel.getScoreCount());
+		newScore += increment;
+		gridModel.setScoreCount(Integer.toString(newScore));
 	}
 }

@@ -1,11 +1,29 @@
 package application.model;
 
 import java.util.Arrays;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class TetrisGridModel {
 
 	int numberOfRows, numberOfColumns;
 	KlotzTypeModel[][] gridOfKlotzes; 
+	
+	//StringProperty
+	private final StringProperty scoreCount = new SimpleStringProperty();
+
+	public final String getScoreCount() {
+		return this.scoreCount.get();
+	}
+
+	public final void setScoreCount(String value) {
+		this.scoreCount.set(value);
+	}
+
+	public final StringProperty scoreCountProperty() {
+		return this.scoreCount;
+	}
+	//end StringProperty
 	
 	public TetrisGridModel(int rows, int columns) {
 		numberOfRows = rows;
