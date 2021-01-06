@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.awt.Point;
+import java.util.Arrays;
 
 import application.model.KlotzTypeModel;
 import application.model.SingleKlotzModel;
@@ -85,6 +86,13 @@ public class MovementController {
 			//end minimal game over
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
 		}
+		
+		//clear full rows and flush
+		System.out.println("First full row: " + checkFirstFullRows() + " Calling clearFullRow()");
+		if(checkFirstFullRows() > -1) {
+			clearFullRow(checkFirstFullRows());
+		}
+		
 		incrementScoreCount(50);
 		putNextShapeInStartPositionAndNewShapeInNextGrid();
 		gridController.refreshGrid();
@@ -122,5 +130,36 @@ public class MovementController {
 		int newScore = Integer.parseInt(gridModel.getScoreCount());
 		newScore += increment;
 		gridModel.setScoreCount(Integer.toString(newScore));
+	}
+	
+	private int checkFirstFullRows() {
+		boolean rowIsFull = false;
+		for(int i = 0; i < gridModel.getNumberOfRows(); i++) {
+			for (int j = 0; j < gridModel.getNumberOfColumns(); j++) {
+				if (gridModel.getKlotzOfCell(i, j) == KlotzTypeModel.NoKlotz) {
+					rowIsFull = false;
+					break;
+				} else {
+					rowIsFull = true;
+				}
+			}
+			if (rowIsFull) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private void clearFullRow(int rowIndex) {
+		//flush row above first full row
+		for (int y = rowIndex; y < 0; y--) {
+			for (int x = 0; x < gridModel.getNumberOfColumns(); x++) {
+				gridModel.setKlotzOfCell(y, x, gridModel.getKlotzOfCell(y-1, x));
+			}
+		}
+		//fill 0th row with empty NoKotz-Types
+		for (int x = 0; x < gridModel.getNumberOfColumns(); x++) {
+			gridModel.setKlotzOfCell(0, x, KlotzTypeModel.NoKlotz);
+		}
 	}
 }
