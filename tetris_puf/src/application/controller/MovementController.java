@@ -1,7 +1,6 @@
 package application.controller;
 
 import java.awt.Point;
-import java.util.Arrays;
 
 import application.model.KlotzTypeModel;
 import application.model.SingleKlotzModel;
@@ -26,11 +25,19 @@ public class MovementController {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
 			int y = (int)klotzCoordinate.getY() + offsetY;
 			int x = (int)klotzCoordinate.getX() + offsetX;
-			if ( x < 0  || (x >= gridModel.getNumberOfColumns()) || (y >= gridModel.getNumberOfRows()) || (gridModel.getKlotzOfCell(y, x) != KlotzTypeModel.NoKlotz) ) { 
+			if(singlePointPositionIsIllegal(x, y)) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	private boolean singlePointPositionIsIllegal(int x, int y) {
+		if ( x < 0  || (x >= gridModel.getNumberOfColumns()) || (y >= gridModel.getNumberOfRows()) || (gridModel.getKlotzOfCell(y, x) != KlotzTypeModel.NoKlotz) ) { 
+			System.out.println("YOU CAN'T DO THAT!!");
+			return true;
+		}
+		return false;		
 	}
 
 	public void debugCoordinates() {
@@ -61,9 +68,6 @@ public class MovementController {
 		if (positionIsLegal(offsetX, offsetY)) {
 			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
 		}
-	}
-
-	public void drop() {
 	}
 
 	public void moveDown() {
@@ -109,9 +113,22 @@ public class MovementController {
 		if (shapeModel.getKlotzType()==KlotzTypeModel.OKlotz) {
 			return;
 		}
+		
 		for (SingleKlotzModel Klotz : shapeModel.getThreeKlotzVectorsRelativeToAnchorPoint()) {
 			Klotz.setDirection(VectorDirectionsModel.rotateRight(Klotz.getDirection()));
-			gridController.refreshGrid();
+		}
+		
+		boolean positionIsLegal = true;
+		for (Point positionCoordinate : shapeModel.getFourKlotzCoordinates()) {
+			if (singlePointPositionIsIllegal((int)positionCoordinate.getX(), (int)positionCoordinate.getY())) {
+				positionIsLegal = false;
+			}
+		}
+		
+		if (positionIsLegal) {
+			gridController.refreshGrid();	
+		} else {
+			rotateLeft();
 		}
 	}
 	
@@ -122,7 +139,18 @@ public class MovementController {
 		}
 		for (SingleKlotzModel Klotz : shapeModel.getThreeKlotzVectorsRelativeToAnchorPoint()) {
 			Klotz.setDirection(VectorDirectionsModel.rotateLeft(Klotz.getDirection()));
-			gridController.refreshGrid();
+		}
+		boolean positionIsLegal = true;
+		for (Point positionCoordinate : shapeModel.getFourKlotzCoordinates()) {
+			if (singlePointPositionIsIllegal((int)positionCoordinate.getX(), (int)positionCoordinate.getY())) {
+				positionIsLegal = false;
+			}
+		}
+		
+		if (positionIsLegal) {
+			gridController.refreshGrid();	
+		} else {
+			rotateRight();
 		}
 	}
 	
