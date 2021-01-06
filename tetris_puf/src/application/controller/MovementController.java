@@ -152,7 +152,7 @@ public class MovementController {
 	
 	private void clearFullRow(int rowIndex) {
 		//flush row above first full row
-		for (int y = rowIndex; y < 0; y--) {
+		for (int y = rowIndex; y > 0; y--) {
 			for (int x = 0; x < gridModel.getNumberOfColumns(); x++) {
 				gridModel.setKlotzOfCell(y, x, gridModel.getKlotzOfCell(y-1, x));
 			}
