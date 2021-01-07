@@ -93,8 +93,9 @@ public class MovementController {
 		
 		//clear full rows and flush
 		System.out.println("First full row: " + checkFirstFullRows() + " Calling clearFullRow()");
-		if(checkFirstFullRows() > -1) {
+		while (checkFirstFullRows() > -1) {
 			clearFullRow(checkFirstFullRows());
+			incrementScoreCount(1000);
 		}
 		
 		incrementScoreCount(50);
