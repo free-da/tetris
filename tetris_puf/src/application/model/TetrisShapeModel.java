@@ -1,6 +1,8 @@
 package application.model;
 
 import java.awt.Point;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class TetrisShapeModel {
 	private Point anchorPoint;
@@ -8,12 +10,19 @@ public class TetrisShapeModel {
 	KlotzTypeModel klotzType;
 	TetrisGridModel tetrisGridModel;
 
+	//Observable
+    private PropertyChangeSupport support;
+	
+
 	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel) {
+        support = new PropertyChangeSupport(this);
+        
+        this.anchorPoint = new Point();
 		this.klotzType = klotzType;
 		this.tetrisGridModel = tetrisGridModel;
 		switch (klotzType) {
 		case IKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex+1);
+			setAnchorPoint(columnIndex, rowIndex+1);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 2),	
@@ -21,7 +30,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case OKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			setAnchorPoint(columnIndex, rowIndex);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
@@ -29,7 +38,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case JKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex +1);
+			setAnchorPoint(columnIndex, rowIndex +1);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.NORTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
@@ -37,7 +46,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case LKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex+1);
+			setAnchorPoint(columnIndex, rowIndex+1);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.NORTH, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
@@ -45,7 +54,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case ZKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			setAnchorPoint(columnIndex, rowIndex);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.EAST, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
@@ -53,7 +62,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case TKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			setAnchorPoint(columnIndex, rowIndex);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.EAST, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
@@ -61,7 +70,7 @@ public class TetrisShapeModel {
 			});
 			break;
 		case SKlotz:
-			anchorPoint = new Point(columnIndex, rowIndex);
+			setAnchorPoint(columnIndex, rowIndex);
 			setThreeKlotzVectorsRelativeToAnchorPoint(new SingleKlotzModel[]{
 				new SingleKlotzModel(VectorDirectionsModel.WEST, 1),	
 				new SingleKlotzModel(VectorDirectionsModel.SOUTH, 1),	
@@ -124,7 +133,11 @@ public class TetrisShapeModel {
 	}
 	
 	public void setAnchorPoint(int x, int y) {
+		
+		// Fires a property change event
+        support.firePropertyChange("anchorPoint", this.anchorPoint, new Point(x,y));
 		anchorPoint.move(x,y);
+
 	}
 
 	public SingleKlotzModel[] getThreeKlotzVectorsRelativeToAnchorPoint() {
@@ -134,5 +147,15 @@ public class TetrisShapeModel {
 	public void setThreeKlotzVectorsRelativeToAnchorPoint(SingleKlotzModel[] threeKlotzVectorsRelativeToAnchorPoint) {
 		this.threeKlotzVectorsRelativeToAnchorPoint = threeKlotzVectorsRelativeToAnchorPoint;
 	}
+	
+
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		System.out.println("added " + pcl.toString());
+        support.addPropertyChangeListener(pcl);
+    }
+	
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
 
 }

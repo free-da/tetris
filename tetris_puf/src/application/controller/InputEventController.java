@@ -33,7 +33,7 @@ public class InputEventController {
 	        if(keycode == KeyCode.S) {
 	        	move.rotateLeft();
 	        }
-	        move.debugCoordinates();
+//	        move.debugCoordinates();
 	    });
 		
 		//minimal game loop

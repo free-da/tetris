@@ -51,7 +51,7 @@ public class MovementController {
 	
 	private void setShapeToNewPositionAndRefreshGrid(int offsetX, int offsetY) {
 		shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX() + offsetX, (int)shapeModel.getAnchorPoint().getY() + offsetY);
-		gridController.refreshGrid();
+//		gridController.refreshGrid();
 	}
 	
 	public void moveLeft() {
@@ -99,7 +99,7 @@ public class MovementController {
 		
 		incrementScoreCount(50);
 		putNextShapeInStartPositionAndNewShapeInNextGrid();
-		gridController.refreshGrid();
+//		gridController.refreshGrid();
 	}
 	
 	public void putNextShapeInStartPositionAndNewShapeInNextGrid() {

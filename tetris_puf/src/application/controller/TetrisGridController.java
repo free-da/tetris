@@ -3,13 +3,15 @@ package application.controller;
 import application.model.TetrisShapeModel;
 
 import java.awt.Point;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.view.TetrisGridView;
 import javafx.scene.canvas.Canvas;
 
-public class TetrisGridController {
+public class TetrisGridController implements PropertyChangeListener {
 	Canvas gameboardCanvas;
 	TetrisGridModel tetrisGridModel;
 	TetrisGridView tetrisGridView;
@@ -23,6 +25,8 @@ public class TetrisGridController {
 	}
 	
 	public void refreshGrid() {
+        System.out.println("I listen");
+
 		for(int columns=0; columns<=tetrisGridModel.getNumberOfColumns(); columns++) {
 			for(int rows=0; rows<tetrisGridModel.getNumberOfRows(); rows++) {
 				tetrisGridView.setKlotz(rows, columns, KlotzTypeModel.NoKlotz);
@@ -51,21 +55,29 @@ public class TetrisGridController {
 
 	public TetrisShapeModel newTetrisShape(int rowIndex) {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
-//		int rowIndex = 0;
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
-		refreshGrid();
+		newShape.addPropertyChangeListener(this);
+//		refreshGrid();
 		return newShape;
 	}
 	
 
 	public TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
-//		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
-//		int rowIndex = 0;
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
-		refreshGrid();
+		newShape.addPropertyChangeListener(this);
+//		refreshGrid();
 		return newShape;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		System.out.println("Name      = " + event.getPropertyName());
+        System.out.println("Old Value = " + event.getOldValue());
+        System.out.println("New Value = " + event.getNewValue());
+        refreshGrid();
+		
 	}
 	
 	
