@@ -25,8 +25,6 @@ public class TetrisGridController implements PropertyChangeListener {
 	}
 	
 	public void refreshGrid() {
-        System.out.println("I listen");
-
 		for(int columns=0; columns<=tetrisGridModel.getNumberOfColumns(); columns++) {
 			for(int rows=0; rows<tetrisGridModel.getNumberOfRows(); rows++) {
 				tetrisGridView.setKlotz(rows, columns, KlotzTypeModel.NoKlotz);
@@ -58,7 +56,7 @@ public class TetrisGridController implements PropertyChangeListener {
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
 		newShape.addPropertyChangeListener(this);
-//		refreshGrid();
+		refreshGrid();
 		return newShape;
 	}
 	
@@ -67,7 +65,7 @@ public class TetrisGridController implements PropertyChangeListener {
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
 		newShape.addPropertyChangeListener(this);
-//		refreshGrid();
+		refreshGrid();
 		return newShape;
 	}
 

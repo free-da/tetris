@@ -49,7 +49,7 @@ public class MovementController {
 		}
 	}
 	
-	private void setShapeToNewPositionAndRefreshGrid(int offsetX, int offsetY) {
+	private void setShapeToNewPosition(int offsetX, int offsetY) {
 		shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX() + offsetX, (int)shapeModel.getAnchorPoint().getY() + offsetY);
 //		gridController.refreshGrid();
 	}
@@ -58,7 +58,7 @@ public class MovementController {
 		int offsetX = -1;
 		int offsetY = 0;
 		if (positionIsLegal(offsetX, offsetY)) {
-			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
+			setShapeToNewPosition(offsetX, offsetY);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class MovementController {
 		int offsetX = 1;
 		int offsetY = 0;
 		if (positionIsLegal(offsetX, offsetY)) {
-			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
+			setShapeToNewPosition(offsetX, offsetY);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class MovementController {
 		int offsetX = 0;
 		int offsetY = 1;
 		if (positionIsLegal(offsetX, offsetY)) {
-			setShapeToNewPositionAndRefreshGrid(offsetX, offsetY);
+			setShapeToNewPosition(offsetX, offsetY);
 		} else {
 			lockInGridAndMakeNewShape();
 		}

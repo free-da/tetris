@@ -133,11 +133,10 @@ public class TetrisShapeModel {
 	}
 	
 	public void setAnchorPoint(int x, int y) {
-		
+		Point oldValue = this.anchorPoint;
+		anchorPoint = new Point(x,y);
 		// Fires a property change event
-        support.firePropertyChange("anchorPoint", this.anchorPoint, new Point(x,y));
-		anchorPoint.move(x,y);
-
+        support.firePropertyChange("anchorPoint", oldValue, this.anchorPoint);
 	}
 
 	public SingleKlotzModel[] getThreeKlotzVectorsRelativeToAnchorPoint() {
@@ -150,7 +149,6 @@ public class TetrisShapeModel {
 	
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
-		System.out.println("added " + pcl.toString());
         support.addPropertyChangeListener(pcl);
     }
 	
