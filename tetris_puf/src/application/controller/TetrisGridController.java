@@ -80,9 +80,9 @@ public class TetrisGridController implements PropertyChangeListener {
 	
 	public int checkFirstFullRows() {
 		boolean rowIsFull = false;
-		for(int i = 0; i < tetrisGridModel.getNumberOfRows(); i++) {
-			for (int j = 0; j < tetrisGridModel.getNumberOfColumns(); j++) {
-				if (tetrisGridModel.getKlotzOfCell(i, j) == KlotzTypeModel.NoKlotz) {
+		for(int y = 0; y < tetrisGridModel.getNumberOfRows(); y++) {
+			for (int x = 0; x < tetrisGridModel.getNumberOfColumns(); x++) {
+				if (tetrisGridModel.getKlotzOfCell(y, x) == KlotzTypeModel.NoKlotz) {
 					rowIsFull = false;
 					break;
 				} else {
@@ -90,20 +90,20 @@ public class TetrisGridController implements PropertyChangeListener {
 				}
 			}
 			if (rowIsFull) {
-				return i;
+				return y;
 			}
 		}
 		return -1;
 	}
 	
 	public void clearFullRow(int rowIndex) {
-		//flush row above first full row
+		//move down all rows above first full row
 		for (int y = rowIndex; y > 0; y--) {
 			for (int x = 0; x < tetrisGridModel.getNumberOfColumns(); x++) {
 				tetrisGridModel.setKlotzOfCell(y, x, tetrisGridModel.getKlotzOfCell(y-1, x));
 			}
 		}
-		//fill 0th row with empty NoKotz-Types
+		//initialize new 0th row with NoKotz-Types
 		for (int x = 0; x < tetrisGridModel.getNumberOfColumns(); x++) {
 			tetrisGridModel.setKlotzOfCell(0, x, KlotzTypeModel.NoKlotz);
 		}
