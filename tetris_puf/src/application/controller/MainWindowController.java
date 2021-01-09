@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 
+import javafx.stage.Stage;
+
 public class MainWindowController {
+	TetrisGridModel gameboardGridModel;
 	TetrisShapeModel newShape;
 	TetrisGridController gameBoardGridController;
 	TetrisGridController nextGridController;
@@ -19,23 +22,34 @@ public class MainWindowController {
 	
 	public void initialize() {
 		
-		TetrisGridModel gameboardGridModel = new TetrisGridModel(31, 15);
+		gameboardGridModel = new TetrisGridModel(31, 15);
 		gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
-		newShape = gameBoardGridController.newTetrisShape(0);
+		//newShape = gameBoardGridController.newTetrisShape(0);
 		
 		TetrisGridModel nextGridModel = new TetrisGridModel(14, 7);
 		nextGridController = new TetrisGridController(nextUpCanvas, nextGridModel);
-		nextGridController.newTetrisShape(6);
+		//nextGridController.newTetrisShape(6);
 		
-		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController);
+		newGame();
+		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController, this);
 		//bind pointsLabel
-		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());
-		gameboardGridModel.setScoreCount("0");
-		
+		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());		
 	}
 
 	public void setSceneAndSetupListeners(Scene scene) {
 		InputEventController inputEventController = new InputEventController(scene, movement);
-	}   
+	}
+	
+	public void newGame() {
+		gameboardGridModel.initialiseKlotzTypeModelArray();
+		gameboardGridModel.setScoreCount("0");
+		if(gameBoardGridController.newShape==null)newShape = gameBoardGridController.newTetrisShape(0);
+		if(nextGridController.newShape==null)nextGridController.newTetrisShape(6);
+	}
+	
+	public void gameOver() {
+		System.out.println("TODO: Display Game Over Screen");
+        newGame();
+	}
 
 }

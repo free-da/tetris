@@ -12,13 +12,15 @@ public class MovementController {
 	TetrisShapeModel shapeModel;
 	TetrisGridModel gridModel;
 	TetrisGridController gridController;
-	TetrisGridController nextController; 
+	TetrisGridController nextController;
+	MainWindowController mainWindowController;
 	
-	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController) {
+	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController, MainWindowController mainWindowController) {
 		this.shapeModel = shapeModel;
 		this.gridModel = gridModel;
 		this.gridController = gridController;
 		this.nextController = nextController;
+		this.mainWindowController = mainWindowController;
 	}
 	
 	public boolean positionIsLegal(int offsetX, int offsetY) {
@@ -82,13 +84,16 @@ public class MovementController {
 	
 	public void lockInGridAndMakeNewShape() {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
+			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType());
 			//minimal game over
 			if ((int)klotzCoordinate.getY()==0) {
 				System.out.println("Game Over");
-	            System.exit(0);
+	            //System.exit(0);
+				mainWindowController.gameOver();
+				return;
 			}
 			//end minimal game over
-			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
+			 
 		}
 		
 		//clear full rows

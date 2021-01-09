@@ -29,6 +29,11 @@ public class TetrisGridModel {
 		numberOfRows = rows;
 		numberOfColumns = columns;
 		gridOfKlotzes = new KlotzTypeModel[numberOfRows][numberOfColumns];
+		initialiseKlotzTypeModelArray();
+		
+	}
+	
+	public void initialiseKlotzTypeModelArray() {
 		for(KlotzTypeModel[] column:gridOfKlotzes) {
 			Arrays.fill(column, KlotzTypeModel.NoKlotz);	
 		}
