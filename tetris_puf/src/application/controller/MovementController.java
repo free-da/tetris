@@ -91,14 +91,13 @@ public class MovementController {
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType()); 
 		}
 		
-		//clear full rows and flush
-		System.out.println("First full row: " + checkFirstFullRows() + " Calling clearFullRow()");
-		while (checkFirstFullRows() > -1) {
-			clearFullRow(checkFirstFullRows());
-			incrementScoreCount(1000);
-		}
-		
-		incrementScoreCount(50);
+		//clear full rows
+		//System.out.println("First full row: " + gridController.checkFirstFullRows() + " Calling clearFullRow()");
+		while (gridController.checkFirstFullRows() > -1) {
+			gridController.clearFullRow(gridController.checkFirstFullRows());
+			gridController.incrementScoreCount(1000); //score per cleared row
+		}		
+		gridController.incrementScoreCount(50); //score per locked shape
 		putNextShapeInStartPositionAndNewShapeInNextGrid();
 //		gridController.refreshGrid();
 	}
@@ -152,43 +151,6 @@ public class MovementController {
 			gridController.refreshGrid();	
 		} else {
 			rotateRight();
-		}
-	}
-	
-	private void incrementScoreCount(int increment) {
-		int newScore = Integer.parseInt(gridModel.getScoreCount());
-		newScore += increment;
-		gridModel.setScoreCount(Integer.toString(newScore));
-	}
-	
-	private int checkFirstFullRows() {
-		boolean rowIsFull = false;
-		for(int i = 0; i < gridModel.getNumberOfRows(); i++) {
-			for (int j = 0; j < gridModel.getNumberOfColumns(); j++) {
-				if (gridModel.getKlotzOfCell(i, j) == KlotzTypeModel.NoKlotz) {
-					rowIsFull = false;
-					break;
-				} else {
-					rowIsFull = true;
-				}
-			}
-			if (rowIsFull) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	private void clearFullRow(int rowIndex) {
-		//flush row above first full row
-		for (int y = rowIndex; y > 0; y--) {
-			for (int x = 0; x < gridModel.getNumberOfColumns(); x++) {
-				gridModel.setKlotzOfCell(y, x, gridModel.getKlotzOfCell(y-1, x));
-			}
-		}
-		//fill 0th row with empty NoKotz-Types
-		for (int x = 0; x < gridModel.getNumberOfColumns(); x++) {
-			gridModel.setKlotzOfCell(0, x, KlotzTypeModel.NoKlotz);
 		}
 	}
 }

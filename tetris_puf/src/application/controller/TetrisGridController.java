@@ -78,5 +78,41 @@ public class TetrisGridController implements PropertyChangeListener {
 		
 	}
 	
+	public int checkFirstFullRows() {
+		boolean rowIsFull = false;
+		for(int i = 0; i < tetrisGridModel.getNumberOfRows(); i++) {
+			for (int j = 0; j < tetrisGridModel.getNumberOfColumns(); j++) {
+				if (tetrisGridModel.getKlotzOfCell(i, j) == KlotzTypeModel.NoKlotz) {
+					rowIsFull = false;
+					break;
+				} else {
+					rowIsFull = true;
+				}
+			}
+			if (rowIsFull) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public void clearFullRow(int rowIndex) {
+		//flush row above first full row
+		for (int y = rowIndex; y > 0; y--) {
+			for (int x = 0; x < tetrisGridModel.getNumberOfColumns(); x++) {
+				tetrisGridModel.setKlotzOfCell(y, x, tetrisGridModel.getKlotzOfCell(y-1, x));
+			}
+		}
+		//fill 0th row with empty NoKotz-Types
+		for (int x = 0; x < tetrisGridModel.getNumberOfColumns(); x++) {
+			tetrisGridModel.setKlotzOfCell(0, x, KlotzTypeModel.NoKlotz);
+		}
+	}
+	
+	public void incrementScoreCount(int increment) {
+		int newScore = Integer.parseInt(tetrisGridModel.getScoreCount());
+		newScore += increment;
+		tetrisGridModel.setScoreCount(Integer.toString(newScore));
+	}
 	
 }
