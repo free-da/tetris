@@ -3,15 +3,12 @@ package application.controller;
 import application.model.TetrisShapeModel;
 
 import java.awt.Point;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.view.TetrisGridView;
 import javafx.scene.canvas.Canvas;
 
-public class TetrisGridController implements PropertyChangeListener {
+public class TetrisGridController implements TetrisShapeChangedListener {
 	Canvas gameboardCanvas;
 	TetrisGridModel tetrisGridModel;
 	TetrisGridView tetrisGridView;
@@ -55,8 +52,7 @@ public class TetrisGridController implements PropertyChangeListener {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
-		newShape.addPropertyChangeListener(this);
-		refreshGrid();
+		newShape.addListener(this);
 		return newShape;
 	}
 	
@@ -64,18 +60,8 @@ public class TetrisGridController implements PropertyChangeListener {
 	public TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
-		newShape.addPropertyChangeListener(this);
-		refreshGrid();
+		newShape.addListener(this);
 		return newShape;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		System.out.println("Name      = " + event.getPropertyName());
-        System.out.println("Old Value = " + event.getOldValue());
-        System.out.println("New Value = " + event.getNewValue());
-        refreshGrid();
-		
 	}
 	
 	public int checkFirstFullRows() {
@@ -113,6 +99,11 @@ public class TetrisGridController implements PropertyChangeListener {
 		int newScore = Integer.parseInt(tetrisGridModel.getScoreCount());
 		newScore += increment;
 		tetrisGridModel.setScoreCount(Integer.toString(newScore));
+	}
+
+	@Override
+	public void tetrisShapeChanged() {
+		refreshGrid();
 	}
 	
 }

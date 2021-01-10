@@ -17,7 +17,7 @@ public class InputEventController {
 		scene.setOnKeyPressed(event -> {
 			
 	        KeyCode keycode = event.getCode();
-	        System.out.println(keycode);
+//	        System.out.println(keycode);
 	        if(keycode == KeyCode.LEFT) { 
 	        	move.moveLeft();
         	}

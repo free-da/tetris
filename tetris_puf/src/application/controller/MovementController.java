@@ -36,7 +36,6 @@ public class MovementController {
 
 	private boolean singlePointPositionIsIllegal(int x, int y) {
 		if ( x < 0  || (x >= gridModel.getNumberOfColumns()) || (y >= gridModel.getNumberOfRows()) || (gridModel.getKlotzOfCell(y, x) != KlotzTypeModel.NoKlotz) ) { 
-			System.out.println("YOU CAN'T DO THAT!!");
 			return true;
 		}
 		return false;		
@@ -53,7 +52,6 @@ public class MovementController {
 	
 	private void setShapeToNewPosition(int offsetX, int offsetY) {
 		shapeModel.setAnchorPoint((int)shapeModel.getAnchorPoint().getX() + offsetX, (int)shapeModel.getAnchorPoint().getY() + offsetY);
-//		gridController.refreshGrid();
 	}
 	
 	public void moveLeft() {
@@ -104,7 +102,6 @@ public class MovementController {
 		}		
 		gridController.incrementScoreCount(50); //score per locked shape
 		putNextShapeInStartPositionAndNewShapeInNextGrid();
-//		gridController.refreshGrid();
 	}
 	
 	public void putNextShapeInStartPositionAndNewShapeInNextGrid() {
@@ -131,7 +128,7 @@ public class MovementController {
 		}
 		
 		if (positionIsLegal) {
-			gridController.refreshGrid();	
+			shapeModel.tellObserversIChanged();
 		} else {
 			rotateLeft();
 		}
@@ -153,7 +150,7 @@ public class MovementController {
 		}
 		
 		if (positionIsLegal) {
-			gridController.refreshGrid();	
+			shapeModel.tellObserversIChanged();
 		} else {
 			rotateRight();
 		}
