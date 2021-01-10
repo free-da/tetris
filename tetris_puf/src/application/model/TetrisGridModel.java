@@ -30,7 +30,7 @@ public class TetrisGridModel {
 		numberOfColumns = columns;
 		gridOfKlotzes = new KlotzTypeModel[numberOfRows][numberOfColumns];
 		initialiseKlotzTypeModelArray();
-		
+		setScoreCount("0");
 	}
 	
 	public void initialiseKlotzTypeModelArray() {

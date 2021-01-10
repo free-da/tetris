@@ -15,12 +15,12 @@ public class MovementController {
 	TetrisGridController nextController;
 	MainWindowController mainWindowController;
 	
-	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController, MainWindowController mainWindowController) {
+	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController, MainWindowController mainController) {
 		this.shapeModel = shapeModel;
 		this.gridModel = gridModel;
 		this.gridController = gridController;
 		this.nextController = nextController;
-		this.mainWindowController = mainWindowController;
+		this.mainWindowController = mainController;
 	}
 	
 	public boolean positionIsLegal(int offsetX, int offsetY) {

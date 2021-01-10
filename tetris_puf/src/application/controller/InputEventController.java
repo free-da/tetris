@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode;
 import javafx.animation.AnimationTimer;
 
 public class InputEventController {
-	private double time;
 	Scene scene;
 	MovementController move;
 	TetrisGridController grid;
@@ -35,20 +34,5 @@ public class InputEventController {
 	        }
 //	        move.debugCoordinates();
 	    });
-		
-		//minimal game loop
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                time += 0.015;
-
-                if (time >= 0.5) {
-                	move.moveDown();
-                    time = 0;
-                }
-            }
-        };
-        timer.start();
-		
 	}
 }
