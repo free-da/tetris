@@ -4,17 +4,22 @@ import application.model.TetrisGridModel;
 import application.model.TetrisShapeModel;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
-
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class MainWindowController {
 	TetrisGridModel gameboardGridModel;
 	TetrisShapeModel newShape;
 	TetrisGridController gameBoardGridController;
 	TetrisGridController nextGridController;
+	InputEventController inputEventController;
 	MovementController movement;
+	Stage stage;
 	
 	@FXML
 	Canvas gameboardCanvas, nextUpCanvas;
@@ -36,8 +41,9 @@ public class MainWindowController {
 		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());		
 	}
 
-	public void setSceneAndSetupListeners(Scene scene) {
-		InputEventController inputEventController = new InputEventController(scene, movement);
+	public void setSceneAndSetupListeners(Scene scene, Stage stage) {
+		this.stage = stage;
+		inputEventController = new InputEventController(scene, movement);
 	}
 	
 	public void newGame() {
@@ -48,8 +54,26 @@ public class MainWindowController {
 	}
 	
 	public void gameOver() {
+		//inputEventController.stopTimer();
 		System.out.println("TODO: Display Game Over Screen");
-        newGame();
+		//game over screen
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        Button quitButton = new Button("Quit");
+        Button newGameButton = new Button("New Game");
+        quitButton.setOnAction(event -> System.exit(0));
+        newGameButton.setOnAction(event -> newGame());
+        dialogVbox.getChildren().add(new Text("Game Over"));
+        dialogVbox.getChildren().add(new Text("Score"));
+        dialogVbox.getChildren().add(newGameButton);
+        dialogVbox.getChildren().add(quitButton);
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+		
+		//newGame();
 	}
 
 }

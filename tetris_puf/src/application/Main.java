@@ -17,7 +17,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		
 		MainWindowController controller = (MainWindowController)loader.getController();
-		controller.setSceneAndSetupListeners(scene);
+		controller.setSceneAndSetupListeners(scene, stage);
         
 		stage.setTitle("PuF - Tetris");
 
