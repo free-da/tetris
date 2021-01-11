@@ -26,7 +26,7 @@ public class InputEventController {
 	        if(keycode == KeyCode.DOWN) {
 	        	move.moveDown();
 	        }
-	        if(keycode == KeyCode.W) {
+	        if(keycode == KeyCode.W || keycode == KeyCode.UP) {
 	        	move.rotateRight();
 	        }
 	        if(keycode == KeyCode.S) {

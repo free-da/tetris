@@ -4,6 +4,7 @@ import application.model.TetrisGridModel;
 import application.model.TetrisShapeModel;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -11,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class MainWindowController {
@@ -81,19 +83,27 @@ public class MainWindowController {
 	
 	public void gameOver() {
 		stopAnimationTimer();
+		
 		//game over screen
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(stage);
+        
         VBox dialogVbox = new VBox(20);
+        dialogVbox.setStyle("-fx-background-color: #262626;");
+        dialogVbox.setAlignment(Pos.CENTER);
+        
         Button quitButton = new Button("Quit");
         Button newGameButton = new Button("New Game");
-        
         quitButton.setOnAction(event -> {System.exit(0); dialog.close();});
         newGameButton.setOnAction(event -> {newGame(); dialog.close();});
-        
-        dialogVbox.getChildren().add(new Text("Game Over"));
-        dialogVbox.getChildren().add(new Text("Score"));
+        quitButton.setAlignment(Pos.CENTER);
+        newGameButton.setAlignment(Pos.CENTER);       
+        Text gameOver = new Text("Game Over");
+        gameOver.setFill(Color.YELLOW);
+        gameOver.setStroke(Color.AQUAMARINE);
+        gameOver.setStyle("-fx-font-size: 24;");
+        dialogVbox.getChildren().add(gameOver);
         dialogVbox.getChildren().add(newGameButton);
         dialogVbox.getChildren().add(quitButton);
         

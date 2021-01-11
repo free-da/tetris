@@ -85,8 +85,6 @@ public class MovementController {
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType());
 			//minimal game over
 			if ((int)klotzCoordinate.getY()==0) {
-				System.out.println("Game Over");
-	            //System.exit(0);
 				mainWindowController.gameOver();
 				return;
 			}
@@ -95,7 +93,6 @@ public class MovementController {
 		}
 		
 		//clear full rows
-		//System.out.println("First full row: " + gridController.checkFirstFullRows() + " Calling clearFullRow()");
 		while (gridController.checkFirstFullRows() > -1) {
 			gridController.clearFullRow(gridController.checkFirstFullRows());
 			gridController.incrementScoreCount(1000); //score per cleared row
