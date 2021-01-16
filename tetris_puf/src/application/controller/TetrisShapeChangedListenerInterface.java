@@ -1,5 +1,5 @@
 package application.controller;
 
-public interface TetrisShapeChangedListener {
+public interface TetrisShapeChangedListenerInterface {
     void tetrisShapeChanged();
 }

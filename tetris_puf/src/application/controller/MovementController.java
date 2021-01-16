@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.model.KlotzTypeModel;
 import application.model.SingleKlotzModel;
@@ -13,15 +15,19 @@ public class MovementController {
 	TetrisGridModel gridModel;
 	TetrisGridController gridController;
 	TetrisGridController nextController;
-	MainWindowController mainWindowController;
 	
-	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController, MainWindowController mainController) {
+    private List<GameOverListenerInterface> listeners = new ArrayList<GameOverListenerInterface>();
+	
+	public MovementController(TetrisShapeModel shapeModel, TetrisGridModel gridModel, TetrisGridController gridController, TetrisGridController nextController) {
 		this.shapeModel = shapeModel;
 		this.gridModel = gridModel;
 		this.gridController = gridController;
 		this.nextController = nextController;
-		this.mainWindowController = mainController;
 	}
+	
+	public void addGameOverListener(GameOverListenerInterface toAdd) {
+        listeners.add(toAdd);
+    }
 	
 	public boolean positionIsLegal(int offsetX, int offsetY) {
 		for (Point klotzCoordinate: shapeModel.getFourKlotzCoordinates()) {
@@ -85,8 +91,10 @@ public class MovementController {
 			gridModel.setKlotzOfCell((int)klotzCoordinate.getY(), (int)klotzCoordinate.getX(), shapeModel.getKlotzType());
 			//minimal game over
 			if ((int)klotzCoordinate.getY()==0) {
-				mainWindowController.gameOver();
-				return;
+				for (GameOverListenerInterface hl : listeners) {
+		            hl.gameIsOver();
+		    	}
+			return;
 			}
 			//end minimal game over
 			 

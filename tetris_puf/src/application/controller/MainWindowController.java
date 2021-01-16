@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class MainWindowController {
+public class MainWindowController implements GameOverListenerInterface {
 	TetrisGridModel gameboardGridModel;
 	TetrisShapeModel newShape;
 	TetrisGridController gameBoardGridController;
@@ -27,7 +27,6 @@ public class MainWindowController {
 	
 	static double time;
 	static AnimationTimer timer;
-
 
 	@FXML
 	Canvas gameboardCanvas, nextUpCanvas;
@@ -43,7 +42,8 @@ public class MainWindowController {
 		nextGridController = new TetrisGridController(nextUpCanvas, nextGridModel);
 		nextGridController.newTetrisShape(6);
 		
-		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController, this);
+		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController);
+		movement.addGameOverListener(this);
 		//bind pointsLabel
 		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());	
 		startAnimationTimer();
@@ -110,6 +110,13 @@ public class MainWindowController {
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
+	}
+
+	@Override
+	public void gameIsOver() {
+		// TODO Auto-generated method stub
+		gameOver();
+		
 	}
 
 }

@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.controller.TetrisShapeChangedListener;
+import application.controller.TetrisShapeChangedListenerInterface;
 
 public class TetrisShapeModel {
 	private Point anchorPoint;
@@ -15,16 +15,16 @@ public class TetrisShapeModel {
 	TetrisGridModel tetrisGridModel;
 
 	//Observable
-	private List<TetrisShapeChangedListener> listeners = new ArrayList<TetrisShapeChangedListener>();
+	private List<TetrisShapeChangedListenerInterface> listeners = new ArrayList<TetrisShapeChangedListenerInterface>();
 
-    public void addListener(TetrisShapeChangedListener toAdd) {
+    public void addListener(TetrisShapeChangedListenerInterface toAdd) {
         listeners.add(toAdd);
 		tellObserversIChanged();
     }
 
     public void tellObserversIChanged() {
         // Notify everybody that may be interested.
-        for (TetrisShapeChangedListener hl : listeners)
+        for (TetrisShapeChangedListenerInterface hl : listeners)
             hl.tetrisShapeChanged();
     }
 

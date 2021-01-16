@@ -8,7 +8,7 @@ import application.model.TetrisGridModel;
 import application.view.TetrisGridView;
 import javafx.scene.canvas.Canvas;
 
-public class TetrisGridController implements TetrisShapeChangedListener {
+public class TetrisGridController implements TetrisShapeChangedListenerInterface {
 	Canvas gameboardCanvas;
 	TetrisGridModel tetrisGridModel;
 	TetrisGridView tetrisGridView;
