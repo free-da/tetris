@@ -2,34 +2,32 @@ package application.controller;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.animation.AnimationTimer;
 
 public class InputEventController {
 	Scene scene;
-	MovementController move;
-	TetrisGridController grid;
+	MovementController movement;
 	
-	public InputEventController(Scene scene, MovementController move) {
+	public InputEventController(Scene scene, MovementController movement) {
 		this.scene = scene;
-		this.move = move;
+		this.movement = movement;
 				
 		scene.setOnKeyPressed(event -> {
 			
 	        KeyCode keycode = event.getCode();
 	        if(keycode == KeyCode.LEFT) { 
-	        	move.moveLeft();
+	        	movement.moveLeft();
         	}
 	        if(keycode == KeyCode.RIGHT) { 
-	        	move.moveRight();
+	        	movement.moveRight();
 	        }
 	        if(keycode == KeyCode.DOWN) {
-	        	move.moveDown();
+	        	movement.moveDown();
 	        }
 	        if(keycode == KeyCode.W || keycode == KeyCode.UP) {
-	        	move.rotateRight();
+	        	movement.rotateRight();
 	        }
 	        if(keycode == KeyCode.S) {
-	        	move.rotateLeft();
+	        	movement.rotateLeft();
 	        }
 	    });
 	}
