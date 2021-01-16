@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.model.TetrisShapeModel;
 import javafx.animation.AnimationTimer;
@@ -15,13 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class MainWindowController implements GameOverListenerInterface {
-	TetrisGridModel gameboardGridModel;
-	TetrisShapeModel newShape;
+public class MainWindowController implements GameOverListenerInterface, LockShapeInterface {
+	private static final int PLAYING_GRID_SHAPE_ROW_POSITION = 0;
+	private static final int NEXT_GRID_SHAPE_ROW_POSITION = 6;
 	TetrisGridController gameBoardGridController;
 	TetrisGridController nextGridController;
+	TetrisGridModel gameboardGridModel;
 	InputEventController inputEventController;
-	MovementController movement;
+	MovementController movementController;
 	Stage stage;
 	Scene scene;
 	
@@ -33,18 +35,18 @@ public class MainWindowController implements GameOverListenerInterface {
 	public Label pointsLabel;
 	
 	public void initialize() {
-		
 		gameboardGridModel = new TetrisGridModel(31, 15);
 		gameBoardGridController = new TetrisGridController(gameboardCanvas, gameboardGridModel);
-		newShape = gameBoardGridController.newTetrisShape(0);
+		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION);
+		
+		movementController = new MovementController(playingShape, gameboardGridModel);
+		movementController.addGameOverListener(this);
+		movementController.addLockShapeListener(this);
 		
 		TetrisGridModel nextGridModel = new TetrisGridModel(14, 7);
 		nextGridController = new TetrisGridController(nextUpCanvas, nextGridModel);
-		nextGridController.newTetrisShape(6);
+		putNewShapeInNextGrid();
 		
-		movement = new MovementController(newShape, gameboardGridModel, gameBoardGridController, nextGridController);
-		movement.addGameOverListener(this);
-		//bind pointsLabel
 		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());	
 		startAnimationTimer();
 	}
@@ -52,24 +54,35 @@ public class MainWindowController implements GameOverListenerInterface {
 	public void setSceneAndSetupListeners(Scene scene, Stage stage) {
 		this.scene = scene;
 		this.stage = stage;
-		inputEventController = new InputEventController(scene, movement);
+		inputEventController = new InputEventController(scene, movementController);
 	}
 	
-	public void newGame() {
+	@Override
+	public void gameIsOver() {
+		gameOver();
+	}
+
+	@Override
+	public void shapeReachedGroundAndLocked() {
+		gameBoardGridController.meltRowsAndIncrementScoreIfNecessary();
+		gameBoardGridController.incrementScoreForLockedShape();
+		putNextShapeInStartPosition();
+		putNewShapeInNextGrid();
+	}
+
+	private void newGame() {
 		initialize();
 		setSceneAndSetupListeners(scene, stage);
 	}
 	
-	public void startAnimationTimer() {
-
-		//minimal game loop
+	private void startAnimationTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 time += 0.015;
 
                 if (time >= 0.5) {
-                	movement.moveDown();
+                	movementController.moveDown();
                     time = 0;
                 }
             }
@@ -77,11 +90,11 @@ public class MainWindowController implements GameOverListenerInterface {
         timer.start();
 	}
 	
-	public void stopAnimationTimer() {
+	private void stopAnimationTimer() {
 		timer.stop();
 	}
 	
-	public void gameOver() {
+	private void gameOver() {
 		stopAnimationTimer();
 		
 		//game over screen
@@ -111,12 +124,14 @@ public class MainWindowController implements GameOverListenerInterface {
         dialog.setScene(dialogScene);
         dialog.show();
 	}
+	private void putNextShapeInStartPosition() {
+		KlotzTypeModel nextShapeKlotzType = nextGridController.newShape.getKlotzType();
+		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION, nextShapeKlotzType);
+		movementController.setNewShapeModel(playingShape);
+	}
 
-	@Override
-	public void gameIsOver() {
-		// TODO Auto-generated method stub
-		gameOver();
-		
+	private void putNewShapeInNextGrid() {
+		nextGridController.newTetrisShape(NEXT_GRID_SHAPE_ROW_POSITION);
 	}
 
 }

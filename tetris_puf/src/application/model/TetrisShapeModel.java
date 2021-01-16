@@ -1,8 +1,6 @@
 package application.model;
 
 import java.awt.Point;
-//import java.beans.PropertyChangeListener;
-//import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,7 +143,6 @@ public class TetrisShapeModel {
 	}
 	
 	public void setAnchorPoint(int x, int y) {
-		Point oldValue = this.anchorPoint;
 		anchorPoint = new Point(x,y);
 		tellObserversIChanged();
 	}
