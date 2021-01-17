@@ -121,13 +121,13 @@ public class MainWindowController implements GameOverListenerInterface, LockShap
         dialog.setScene(dialogScene);
         dialog.show();
 	}
+	
 	private void putNextShapeInStartPosition() {
-		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION);
+		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION, nextGridController.newShape.getKlotzType());
 		movementController.setNewShapeModel(playingShape);
 	}
 
 	private void putNewShapeInNextGrid() {
 		nextGridController.newTetrisShape(NEXT_GRID_SHAPE_ROW_POSITION);
 	}
-
 }
