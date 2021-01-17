@@ -6,10 +6,9 @@ import javafx.beans.property.StringProperty;
 
 public class TetrisGridModel {
 
-	int numberOfRows, numberOfColumns;
-	KlotzTypeModel[][] gridOfKlotzes; 
+	private int numberOfRows, numberOfColumns;
+	private KlotzTypeModel[][] gridOfKlotzes; 
 	
-	//StringProperty
 	private final StringProperty scoreCount = new SimpleStringProperty();
 
 	public final String getScoreCount() {
@@ -23,7 +22,6 @@ public class TetrisGridModel {
 	public final StringProperty scoreCountProperty() {
 		return this.scoreCount;
 	}
-	//end StringProperty
 	
 	public TetrisGridModel(int rows, int columns) {
 		numberOfRows = rows;

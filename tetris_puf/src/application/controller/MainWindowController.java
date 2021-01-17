@@ -19,20 +19,18 @@ import javafx.scene.text.Text;
 public class MainWindowController implements GameOverListenerInterface, LockShapeInterface {
 	private static final int PLAYING_GRID_SHAPE_ROW_POSITION = 0;
 	private static final int NEXT_GRID_SHAPE_ROW_POSITION = 6;
-	TetrisGridController gameBoardGridController;
-	TetrisGridController nextGridController;
-	TetrisGridModel gameboardGridModel;
-	InputEventController inputEventController;
-	MovementController movementController;
-	Stage stage;
-	Scene scene;
-	
+	private TetrisGridController gameBoardGridController;
+	private TetrisGridController nextGridController;
+	private TetrisGridModel gameboardGridModel;
+	private MovementController movementController;
+	private Stage stage;
+	private Scene scene;
 	static double time;
 	static AnimationTimer timer;
 
 	@FXML
-	Canvas gameboardCanvas, nextUpCanvas;
-	public Label pointsLabel;
+	private Canvas gameboardCanvas, nextUpCanvas;
+	private Label pointsLabel;
 	
 	public void initialize() {
 		gameboardGridModel = new TetrisGridModel(31, 15);
@@ -54,7 +52,7 @@ public class MainWindowController implements GameOverListenerInterface, LockShap
 	public void setSceneAndSetupListeners(Scene scene, Stage stage) {
 		this.scene = scene;
 		this.stage = stage;
-		inputEventController = new InputEventController(scene, movementController);
+		new InputEventController(scene, movementController);
 	}
 	
 	@Override

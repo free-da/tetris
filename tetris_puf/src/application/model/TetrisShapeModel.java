@@ -9,27 +9,25 @@ import application.controller.TetrisShapeChangedListenerInterface;
 public class TetrisShapeModel {
 	private Point anchorPoint;
 	private SingleKlotzModel[] threeKlotzVectorsRelativeToAnchorPoint;
-	KlotzTypeModel klotzType;
-	TetrisGridModel tetrisGridModel;
-
+	private KlotzTypeModel klotzType;
+	
 	//Observable
-	private List<TetrisShapeChangedListenerInterface> listeners = new ArrayList<TetrisShapeChangedListenerInterface>();
+	private List<TetrisShapeChangedListenerInterface> shapeChangedListeners = new ArrayList<TetrisShapeChangedListenerInterface>();
 
     public void addListener(TetrisShapeChangedListenerInterface toAdd) {
-        listeners.add(toAdd);
+        shapeChangedListeners.add(toAdd);
 		tellObserversIChanged();
     }
 
     public void tellObserversIChanged() {
         // Notify everybody that may be interested.
-        for (TetrisShapeChangedListenerInterface hl : listeners)
+        for (TetrisShapeChangedListenerInterface hl : shapeChangedListeners)
             hl.tetrisShapeChanged();
     }
 
 	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel) {
 		this.anchorPoint = new Point();
 		this.klotzType = klotzType;
-		this.tetrisGridModel = tetrisGridModel;
 		switch (klotzType) {
 		case IKlotz:
 			setAnchorPoint(columnIndex, rowIndex+1);

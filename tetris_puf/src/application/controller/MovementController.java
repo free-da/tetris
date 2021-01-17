@@ -11,8 +11,8 @@ import application.model.TetrisShapeModel;
 import application.model.VectorDirectionsModel;
 
 public class MovementController {
-	TetrisShapeModel shapeModel;
-	TetrisGridModel gridModel;
+	private TetrisShapeModel shapeModel;
+	private TetrisGridModel gridModel;
 	
     private List<GameOverListenerInterface> gameOverListeners = new ArrayList<GameOverListenerInterface>();
     private List<LockShapeInterface> lockShapeListeners = new ArrayList<LockShapeInterface>();
@@ -31,12 +31,11 @@ public class MovementController {
 		lockShapeListeners.add(toAdd);
     }
 
-	protected void setNewShapeModel(TetrisShapeModel shapeModel) {
+	void setNewShapeModel(TetrisShapeModel shapeModel) {
 		this.shapeModel = shapeModel;
 	}
-	
 
-	protected void moveLeft() {
+	void moveLeft() {
 		int offsetX = -1;
 		int offsetY = 0;
 		if (positionIsLegal(offsetX, offsetY)) {
@@ -44,7 +43,7 @@ public class MovementController {
 		}
 	}
 
-	protected void moveRight() {
+	void moveRight() {
 		int offsetX = 1;
 		int offsetY = 0;
 		if (positionIsLegal(offsetX, offsetY)) {
@@ -52,7 +51,7 @@ public class MovementController {
 		}
 	}
 
-	protected void moveDown() {
+	void moveDown() {
 		int offsetX = 0;
 		int offsetY = 1;
 		if (positionIsLegal(offsetX, offsetY)) {
@@ -62,7 +61,7 @@ public class MovementController {
 		}
 	}
 	
-	protected void rotateRight() {
+	void rotateRight() {
 		//do not rotate OKlotzes
 		if (shapeModel.getKlotzType()==KlotzTypeModel.OKlotz) {
 			return;
@@ -86,7 +85,7 @@ public class MovementController {
 		}
 	}
 	
-	protected void rotateLeft() {
+	void rotateLeft() {
 		//do not rotate OKlotzes
 		if (shapeModel.getKlotzType()==KlotzTypeModel.OKlotz) {
 			return;

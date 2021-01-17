@@ -8,10 +8,10 @@ import javafx.scene.paint.Color;
 
 
 public class TetrisGridView {
-	double cellSize = 12;
-	double borderWidth = 2;
-	Canvas canvas;
-	int numberOfYGridLines, numberOfXGridLines;
+	private static double CELL_SIZE = 12;
+	private static double BORDER_WIDTH = 2;
+	private Canvas canvas;
+	private int numberOfYGridLines, numberOfXGridLines;
 	
 	public TetrisGridView(int rows, int columns, Canvas tetrisGridCanvas) {
 		canvas = tetrisGridCanvas;
@@ -58,37 +58,37 @@ public class TetrisGridView {
 	
 	private void drawKlotz(int rowIndex, int columnIndex, Color color) {
 		Lighting effect = new Lighting();
-		double xStart = columnIndex * (cellSize + borderWidth) + (0.5*borderWidth);
-		double yStart = rowIndex * (cellSize + borderWidth) + (0.5*borderWidth);
+		double xStart = columnIndex * (CELL_SIZE + BORDER_WIDTH) + (0.5*BORDER_WIDTH);
+		double yStart = rowIndex * (CELL_SIZE + BORDER_WIDTH) + (0.5*BORDER_WIDTH);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(color);
 		gc.setEffect(effect);
 
-		gc.fillRect(xStart, yStart, cellSize, cellSize);
+		gc.fillRect(xStart, yStart, CELL_SIZE, CELL_SIZE);
 	}
 	
 	private void drawNoKlotz(int rowIndex, int columnIndex) {
-		double xStart = columnIndex * (cellSize + borderWidth) + (0.5*borderWidth);
-		double yStart = rowIndex * (cellSize + borderWidth) + (0.5*borderWidth);
+		double xStart = columnIndex * (CELL_SIZE + BORDER_WIDTH) + (0.5*BORDER_WIDTH);
+		double yStart = rowIndex * (CELL_SIZE + BORDER_WIDTH) + (0.5*BORDER_WIDTH);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.rgb(48,48,48));
 		gc.setEffect(null);
 
-		gc.fillRect(xStart, yStart, cellSize, cellSize);
+		gc.fillRect(xStart, yStart, CELL_SIZE, CELL_SIZE);
 	}
 	
 	private void drawGridLines(GraphicsContext gc) {
-		gc.setLineWidth(borderWidth);
+		gc.setLineWidth(BORDER_WIDTH);
 		gc.setStroke(Color.DIMGREY);
 		double xStart = 0;
 		double yStart = 0;
 		for (int i=0; i<numberOfYGridLines; i++) { 
 	        gc.strokeLine(0, yStart, canvas.getWidth(), yStart);
-	        yStart += cellSize + borderWidth;
+	        yStart += CELL_SIZE + BORDER_WIDTH;
 		}
 		for (int j=0; j<numberOfXGridLines; j++) {
 			gc.strokeLine(xStart, 0, xStart, canvas.getHeight());
-	        xStart += cellSize + borderWidth;
+	        xStart += CELL_SIZE + BORDER_WIDTH;
 		}
 	}
 

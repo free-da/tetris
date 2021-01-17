@@ -11,19 +11,17 @@ import javafx.scene.canvas.Canvas;
 public class TetrisGridController implements TetrisShapeChangedListenerInterface {
 	private static final int MELTED_ROW_SCORE = 1000;
 	private static final int LOCKED_SHAPE_SCORE = 50;
-	Canvas gameboardCanvas;
-	TetrisGridModel tetrisGridModel;
-	TetrisGridView tetrisGridView;
+	private TetrisGridModel tetrisGridModel;
+	private TetrisGridView tetrisGridView;
 	TetrisShapeModel newShape;
 	
 	public TetrisGridController(Canvas gameboardCanvas, TetrisGridModel tetrisGridModel) {
-		this.gameboardCanvas = gameboardCanvas;
 		this.tetrisGridModel = tetrisGridModel;
 		tetrisGridView = new TetrisGridView(tetrisGridModel.getNumberOfRows(), tetrisGridModel.getNumberOfColumns(), gameboardCanvas);
 		fillGridWithKlotzes();
 	}
 
-	protected TetrisShapeModel newTetrisShape(int rowIndex) {
+	TetrisShapeModel newTetrisShape(int rowIndex) {
 		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
@@ -31,21 +29,21 @@ public class TetrisGridController implements TetrisShapeChangedListenerInterface
 		return newShape;
 	}
 	
-	protected TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
+	TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
 		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
 		newShape.addListener(this);
 		return newShape;
 	}
 
-	protected void meltRowsAndIncrementScoreIfNecessary() {
+	void meltRowsAndIncrementScoreIfNecessary() {
 		while (checkFirstFullRows() > -1) {
 			clearFullRow(checkFirstFullRows());
 			incrementScoreCount(MELTED_ROW_SCORE);
 		}		
 	}
 	
-	protected void incrementScoreForLockedShape() {
+	void incrementScoreForLockedShape() {
 		incrementScoreCount(LOCKED_SHAPE_SCORE);
 	}
 	
