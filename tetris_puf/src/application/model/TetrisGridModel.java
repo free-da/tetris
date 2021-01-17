@@ -19,7 +19,7 @@ public class TetrisGridModel {
 		this.scoreCount.set(value);
 	}
 
-	public final StringProperty scoreCountProperty() {
+	public final StringProperty getScoreCountProperty() {
 		return this.scoreCount;
 	}
 	

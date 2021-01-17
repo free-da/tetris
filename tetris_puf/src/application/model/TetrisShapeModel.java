@@ -25,9 +25,19 @@ public class TetrisShapeModel {
             hl.tetrisShapeChanged();
     }
 
-	public TetrisShapeModel(KlotzTypeModel klotzType, int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel) {
-		this.anchorPoint = new Point();
+	public TetrisShapeModel(int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel) {
+		anchorPoint = new Point();
+		klotzType = KlotzTypeModel.randomKlotzType();
+		constructShapeAccordingToKlotzType(rowIndex, columnIndex);
+	}
+
+	public TetrisShapeModel(int rowIndex, int columnIndex, TetrisGridModel tetrisGridModel, KlotzTypeModel klotzType) {
+		anchorPoint = new Point();
 		this.klotzType = klotzType;
+		constructShapeAccordingToKlotzType(rowIndex, columnIndex);
+	}
+	
+	private void constructShapeAccordingToKlotzType(int rowIndex, int columnIndex) {
 		switch (klotzType) {
 		case IKlotz:
 			setAnchorPoint(columnIndex, rowIndex+1);

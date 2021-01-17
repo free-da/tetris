@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.model.KlotzTypeModel;
 import application.model.TetrisGridModel;
 import application.model.TetrisShapeModel;
 import javafx.animation.AnimationTimer;
@@ -30,7 +29,7 @@ public class MainWindowController implements GameOverListenerInterface, LockShap
 
 	@FXML
 	private Canvas gameboardCanvas, nextUpCanvas;
-	private Label pointsLabel;
+	public Label pointsLabel;
 	
 	public void initialize() {
 		gameboardGridModel = new TetrisGridModel(31, 15);
@@ -45,7 +44,7 @@ public class MainWindowController implements GameOverListenerInterface, LockShap
 		nextGridController = new TetrisGridController(nextUpCanvas, nextGridModel);
 		putNewShapeInNextGrid();
 		
-		pointsLabel.textProperty().bind(gameboardGridModel.scoreCountProperty());	
+		pointsLabel.textProperty().bind(gameboardGridModel.getScoreCountProperty());	
 		startAnimationTimer();
 	}
 
@@ -123,8 +122,7 @@ public class MainWindowController implements GameOverListenerInterface, LockShap
         dialog.show();
 	}
 	private void putNextShapeInStartPosition() {
-		KlotzTypeModel nextShapeKlotzType = nextGridController.newShape.getKlotzType();
-		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION, nextShapeKlotzType);
+		TetrisShapeModel playingShape = gameBoardGridController.newTetrisShape(PLAYING_GRID_SHAPE_ROW_POSITION);
 		movementController.setNewShapeModel(playingShape);
 	}
 

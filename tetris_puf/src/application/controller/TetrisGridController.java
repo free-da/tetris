@@ -22,16 +22,15 @@ public class TetrisGridController implements TetrisShapeChangedListenerInterface
 	}
 
 	TetrisShapeModel newTetrisShape(int rowIndex) {
-		KlotzTypeModel randomKlotzType = KlotzTypeModel.randomKlotzType();
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
-		newShape = new TetrisShapeModel(randomKlotzType, rowIndex, columnIndex, tetrisGridModel);
+		newShape = new TetrisShapeModel(rowIndex, columnIndex, tetrisGridModel);
 		newShape.addListener(this);
 		return newShape;
 	}
 	
 	TetrisShapeModel newTetrisShape(int rowIndex, KlotzTypeModel klotzType) {
 		int columnIndex = tetrisGridModel.getNumberOfColumns() / 2;
-		newShape = new TetrisShapeModel(klotzType, rowIndex, columnIndex, tetrisGridModel);
+		newShape = new TetrisShapeModel(rowIndex, columnIndex, tetrisGridModel, klotzType);
 		newShape.addListener(this);
 		return newShape;
 	}
