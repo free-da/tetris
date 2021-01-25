@@ -15,6 +15,7 @@ public class Main extends Application {
 		Parent root = (Parent)loader.load();
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("application/style.css");
 		
 		MainWindowController controller = (MainWindowController)loader.getController();
 		controller.setSceneAndSetupListeners(scene, stage);
